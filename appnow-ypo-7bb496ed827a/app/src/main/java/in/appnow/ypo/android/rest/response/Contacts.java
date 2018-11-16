@@ -26,7 +26,7 @@ public class Contacts implements Parcelable{
     private String memberEmail;
     @SerializedName("memberSocialAcc")
     private String memberSocialAcc;
-    @SerializedName("membershipId")
+    @SerializedName("memberId")
     private String memberId;
     @SerializedName("contactId")
     private String contactId;

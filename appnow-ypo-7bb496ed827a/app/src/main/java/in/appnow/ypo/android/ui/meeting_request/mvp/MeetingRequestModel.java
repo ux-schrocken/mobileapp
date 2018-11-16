@@ -46,7 +46,7 @@ public class MeetingRequestModel extends BaseModel {
     public void openDateTimeSelection(int dateTime, int requestCode) {
         DateTimeSelectionActivity.openDateTimeSelectionActivity(appCompatActivity, dateTime, requestCode);
     }
-
+//to change addMeeting to addNewMeeting
     public void sendMeetingRequest(String userId,String memberId,String dateOfMeeting, String timeOfMeeting, String reasonForMeeting, RetroAPICallback retroAPICallback, int sendMeetingRequestCode) {
         BaseService.addMeeting(appCompatActivity,userId,memberId,dateOfMeeting,timeOfMeeting,reasonForMeeting,apiInterface,retroAPICallback,sendMeetingRequestCode);
     }

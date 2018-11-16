@@ -1,7 +1,7 @@
 package in.appnow.ypo.android.ui.main.mvp;
 
 import android.view.View;
-
+import android.util.Log;
 import in.appnow.ypo.android.mvp_base.BasePresenter;
 
 /**
@@ -11,7 +11,7 @@ import in.appnow.ypo.android.mvp_base.BasePresenter;
 public class MainActivityPresenter implements BasePresenter {
     private final MainActivityView view;
     private final MainActivityModel model;
-
+public static final String TAG = "myactivity";
     public MainActivityPresenter(MainActivityView view, MainActivityModel model) {
         this.view = view;
         this.model = model;
@@ -27,6 +27,8 @@ public class MainActivityPresenter implements BasePresenter {
             boolean isClicked = MainActivityPresenter.this.view.onBottomButtonClick(1);
             if (isClicked) {
                 model.replaceContactFragment();
+               // Log.e(TAG,model.toString() );
+
             }
         });
         view.onMeetingClick(view -> {

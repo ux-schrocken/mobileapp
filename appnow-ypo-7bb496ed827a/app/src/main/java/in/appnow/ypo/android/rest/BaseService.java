@@ -1,9 +1,10 @@
 package in.appnow.ypo.android.rest;
 
 import android.content.Context;
+import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-
+import android.util.Log;
 import java.util.List;
 
 import in.appnow.ypo.android.app_base.YPOApplication;
@@ -27,13 +28,13 @@ import retrofit2.Response;
 import static in.appnow.ypo.android.utils.StringUtils.USER_ID;
 
 /**
- * Created by sonu on 07/01/18.
+ * Created by sonu on 07/01/18.*****
  */
 
 public final class BaseService {
     public BaseService() {
     }
-
+    private static final String TAG = "MyActivity";
 
     public static void getTaskList(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
@@ -179,8 +180,10 @@ public final class BaseService {
     public static void deleteContact(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode, String contactId) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
             retroAPICallback.onNoNetwork(requestCode);
+            //Log.e(TAG, retroAPICallback.toString());
             return;
         }
+
         ProgressDialogFragment.showProgress(((AppCompatActivity) context).getSupportFragmentManager());
 
         Call<ResponseBody> call = apiInterface.deleteContact(contactId);
