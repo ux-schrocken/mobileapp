@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_more"
+        android:icon="@drawable/ic_more_vert_white_24dp"
+        android:title=""
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_new_contact"
+                android:icon="@drawable/ic_add_contact_gray"
+                android:title="New Contact" />
+            <item
+                android:id="@+id/action_schedule_meeting"
+                android:icon="@drawable/ic_add_meeting_gray"
+                android:title="Schedule Meeting" />
+            <item
+                android:id="@+id/action_logout"
+                android:icon="@drawable/ic_logout_gray"
+                android:title="Logout" />
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="light_grey">#e0e0e0</color>
+    <color name="login_bg">#f2f5f8</color>
+    <color name="gunmetal">#2C3539</color>
+    <color name="dark_grey">#7e7e7e</color>
+    <color name="blue">#039BE5</color>
+    <color name="home_bottom_bar_color">#4A4A4A</color>
+    <color name="orange_color">#E36E39</color>
+    <color name="light_orange_color">#F6931D</color>
+    <color name="green_color">#89CE3A</color>
+    <color name="red_color">#E33939</color>
+    <color name="pink_color">#ED3C60</color>
+    <color name="violet">#9013FE</color>
+    <color name="prussian_blue">#142F4E</color>
+    <color name="quartz">#4A4A4A</color>
+    <color name="gainsboro">#D8DCEA</color>
+    <color name="manatee">#999999</color>
+    <color name="gray">#BBBBBB</color>
+    <color name="white_smoke">#F3F5F7</color>
+    <color name="white_transparent">#F2FFFFFF</color>
+</resources>

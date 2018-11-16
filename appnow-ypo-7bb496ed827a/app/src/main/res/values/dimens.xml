@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_curve_radius">40dp</dimen>
+    <dimen name="button_default_curve_radius">@dimen/_2sdp</dimen>
+</resources>

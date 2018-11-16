@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/login_bg"
+    android:orientation="vertical"
+    android:padding="@dimen/_16sdp">
+
+    <ImageView
+        android:id="@+id/login_app_logo"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_centerHorizontal="true"
+        tools:src="@drawable/icon_ypo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/login_note_label"
+        android:layout_below="@+id/login_app_logo"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Sign Into your account"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_18sdp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            android:text="View your dashboard connect with your contacts &amp; schedule meeting"
+            android:textColor="@color/gunmetal"
+            android:textSize="@dimen/_13sdp" />
+
+        <EditText
+            android:id="@+id/login_email_input"
+            style="@style/loginEditText"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:hint="ID"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/login_password_input"
+            style="@style/loginEditText"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_22sdp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/login_remember_me_check_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Remeber me"
+                android:textColor="@color/dark_grey" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end|center_vertical"
+                android:text="Forgot Password?"
+                android:textColor="@color/blue" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/login_sign_in_button"
+            style="@style/commonButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:text="Sign In" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/login_note_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/login_power_by_label"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Your details are secure 256-bit encryption enabled. Know more"
+        android:textColor="@color/dark_grey"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/login_power_by_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:drawablePadding="@dimen/_3sdp"
+        android:drawableRight="@drawable/icon_schrocken"
+        android:gravity="center"
+        android:text="powered by"
+        android:textColor="@color/dark_grey"
+        android:textSize="@dimen/_8sdp" />
+
+</RelativeLayout>

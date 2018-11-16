@@ -1,0 +1,109 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "in.appnow.ypo.android"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode generateVersionCode()
+        versionName generateVersionName()
+
+        vectorDrawables.useSupportLibrary = true
+
+        buildConfigField 'String', 'END_POINT', (project.findProperty("END_POINT") ?: "")
+
+    }
+    // Configure only for each module that uses Java 8
+    // language features (either in its source code or
+    // through dependencies).
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //Support Dependency
+    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:design:$rootProject.supportLibraryVersion"
+
+    //Retrofit Dependency
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+
+    //GSON Dependency
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    //Logging interceptor Dependency
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+
+    //Butter knife Dependency
+    implementation "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterKnifeVersion"
+
+    //Circle Image View
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    //Glide Dependency
+    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
+
+    //sdp for different screen size
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+
+    //swipe reveal layout
+    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+
+    //material calendar view
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
+
+    //dial time picker
+    implementation 'com.github.ugurtekbas:dialTimePicker:8d263fc3a1'
+
+    //Dagger dependency
+    implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+
+}
+
+/**
+ * method to generate version code
+ * @return version code
+ */
+private Integer generateVersionCode() {
+    return rootProject.ext.minSdkVersion * 10000000 + rootProject.ext.versionMajor * 10000 + rootProject.ext.versionMinor * 100 + rootProject.ext.versionPatch
+}
+
+/**
+ * method to generate version name
+ * @return versio name
+ */
+private String generateVersionName() {
+    String versionName = "${rootProject.ext.versionMajor}.${rootProject.ext.versionMinor}.${rootProject.ext.versionPatch}"
+    if (rootProject.ext.versionClassifier == null) {
+        if (rootProject.ext.isSnapshot) {
+            rootProject.ext.versionClassifier = "SNAPSHOT"
+        }
+    }
+
+    if (rootProject.ext.versionClassifier != null) {
+        versionName += "-" + rootProject.ext.versionClassifier
+    }
+    return versionName;
+}

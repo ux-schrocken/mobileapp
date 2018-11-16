@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/login_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/action_toolbar_layout"
+        android:id="@+id/add_contact_toolbar"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_marginRight="@dimen/_16sdp"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_18sdp"
+        android:text="New Contact" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_16sdp"
+        android:gravity="center"
+        android:textColor="@color/gunmetal"
+        android:textSize="@dimen/_13sdp"
+        android:text="Enter the Member Identifier and request for an access to their details" />
+
+    <EditText
+        android:id="@+id/add_contact_enter_member_identifier_input"
+        style="@style/loginEditText"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_16sdp"
+        android:imeOptions="actionDone"
+        android:gravity="center_horizontal"
+        android:hint="Enter member identifier"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/add_contact_request_access_button"
+        style="@style/commonButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_16sdp"
+        android:text="Request Access" />
+</LinearLayout>

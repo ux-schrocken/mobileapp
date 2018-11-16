@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">YPO</string>
+    <string name="no_internet_connection">Please enable data or wifi connection.</string>
+
+    <string name="meeting_request_label">Meeting Request</string>
+    <string name="active_request_message"><![CDATA[<b>%s</b> active requests]]></string>
+    <string name="total_contact_message"><![CDATA[<b>%s</b> contacts]]></string>
+    <string name="denied_request_message"><![CDATA[You have denied <b>%s</b> from <b>%s</b>]]></string>
+    <string name="denied_request_sub_title_message"><![CDATA[You can add %s at a later point using <b>%s</b>]]></string>
+    <string name="new_meeting_request_message"><![CDATA[Meeting with %s]]></string>
+    <string name="new_meeting_date_message"><![CDATA[<b>%s</b> on <b>%s</b> at <b>%s</b>]]></string>
+
+    <string-array name="create_new_array">
+        <item>New Contact</item>
+        <item>New Meeting Request</item>
+    </string-array>
+
+    <string-array name="month_labels">
+        <item>MON</item>
+        <item>TUE</item>
+        <item>WED</item>
+        <item>THU</item>
+        <item>FRI</item>
+        <item>SAT</item>
+        <item>SUN</item>
+    </string-array>
+</resources>
