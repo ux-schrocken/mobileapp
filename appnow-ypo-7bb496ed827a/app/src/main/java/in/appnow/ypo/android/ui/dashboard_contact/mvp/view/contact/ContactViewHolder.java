@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -26,6 +25,7 @@ import in.appnow.ypo.android.ui.meeting_request.MeetingRequestActivity;
 import in.appnow.ypo.android.utils.ToastUtils;
 import in.appnow.ypo.android.utils.VectorUtils;
 
+import android.util.Log;
 /**
  * Created by sonu on 14:56, 23/10/18
  * Copyright (c) 2018 . All rights reserved.
@@ -53,14 +53,14 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
 
     private Context context;
     private int isRequestMeetingCall;
-
+    public static final String TAG = "MyActivity";
     private OnContactMoreOptionListener onContactMoreOptionListener;
-
     public ContactViewHolder(Context context, @NonNull View itemView, OnContactMoreOptionListener onContactMoreOptionListener, int isRequestMeetingCall) {
         super(itemView);
         this.context = context;
         this.isRequestMeetingCall = isRequestMeetingCall;
         this.onContactMoreOptionListener = onContactMoreOptionListener;
+
         ButterKnife.bind(this, itemView);
     }
 
@@ -73,12 +73,11 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
             emailLabel.setText(response.getMemberEmail());
             contactLabel.setText(response.getMemberContactNum());
             socialLabel.setText(response.getMemberSocialAcc());
-
             VectorUtils.setVectorCompoundDrawable(locationLabel, context, R.drawable.ic_location_flag, 0, 0, 0, R.color.violet);
             VectorUtils.setVectorCompoundDrawable(emailLabel, context, R.drawable.ic_email, 0, 0, 0, R.color.violet);
             VectorUtils.setVectorCompoundDrawable(contactLabel, context, R.drawable.ic_contact_phone, 0, 0, 0, R.color.violet);
             VectorUtils.setVectorCompoundDrawable(socialLabel, context, R.drawable.ic_hashtag, 0, 0, 0, R.color.violet);
-
+//    Log.e(TAG,locationLabel+" "+locationLabel+" "+emailLabel+""+contactLabel+" "+socialLabel);
             moreButton.setOnClickListener(view -> showMoreMenu(response));
 
             moreButton.setVisibility(View.VISIBLE);
@@ -147,6 +146,7 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
                     break;
                 case R.id.action_delete_contact:
                     if (onContactMoreOptionListener != null) {
+
                         onContactMoreOptionListener.onDeleteContact(response,getAdapterPosition());
                     } else {
                         ToastUtils.shortToast("Oops!! Unknown error occurred.");

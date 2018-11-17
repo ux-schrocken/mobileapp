@@ -38,6 +38,7 @@ public class DashboardContactModel extends BaseModel {
     }
 
     public void deleteContact(RetroAPICallback retroAPICallback,int requestCode,String contactId) {
+
         BaseService.deleteContact(appCompatActivity,apiInterface,retroAPICallback,requestCode,contactId);
     }
 

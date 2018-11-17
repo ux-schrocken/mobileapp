@@ -26,8 +26,8 @@ public static final String TAG = "myactivity";
         view.onContactClick(view -> {
             boolean isClicked = MainActivityPresenter.this.view.onBottomButtonClick(1);
             if (isClicked) {
+
                 model.replaceContactFragment();
-               // Log.e(TAG,model.toString() );
 
             }
         });

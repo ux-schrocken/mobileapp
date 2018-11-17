@@ -10,6 +10,7 @@ import in.appnow.ypo.android.rest.response.ContactResponse;
 import in.appnow.ypo.android.rest.response.Contacts;
 import in.appnow.ypo.android.rest.response.TaskListResponse;
 import in.appnow.ypo.android.rest.response.Tasks;
+import android.util.Log;
 import in.appnow.ypo.android.ui.contact_details.ContactDetailActivity;
 import in.appnow.ypo.android.ui.dashboard_contact.mvp.view.DashboardContactView;
 import in.appnow.ypo.android.ui.dashboard_contact.mvp.view.contact.ContactViewHolder;
@@ -38,11 +39,11 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
     private int isContact;
     private Tasks tasks = null;
     private int position = -1;
-
     public DashboardContactPresenter(DashboardContactView view, DashboardContactModel model) {
         this.view = view;
         this.model = model;
     }
+    //public static final String TAG = "MyActivity";
 
     @Override
     public void onCreate() {
@@ -59,6 +60,8 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
 
     private void fetchContactList() {
         model.fetchContactList(this, FETCH_CONTACT_LIST_REQUEST_CODE);
+
+        Log.e(TAG, model.toString());
     }
 
     @Override
@@ -108,6 +111,7 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
                             public void onDeleteContact(Contacts response, int pos) {
                                 position = pos;
                                 model.deleteContact(DashboardContactPresenter.this, DELETE_CONTACT_REQUEST_CODE,response.getContactId());
+                                Log.e(TAG,model.toString());
                             }
 
                             @Override

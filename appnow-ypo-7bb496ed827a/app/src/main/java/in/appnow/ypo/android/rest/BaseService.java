@@ -157,7 +157,9 @@ public final class BaseService {
 
     public static void getContactList(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
+
             retroAPICallback.onNoNetwork(requestCode);
+//            Log.e(TAG,)
             return;
         }
         ProgressDialogFragment.showProgress(((AppCompatActivity) context).getSupportFragmentManager());
@@ -166,7 +168,12 @@ public final class BaseService {
         call.enqueue(new Callback<ContactResponse>() {
             @Override
             public void onResponse(@NonNull Call<ContactResponse> call, @NonNull Response<ContactResponse> response) {
+//                Log.e("test", "response"+response.toString());
+//                ContactResponse contactResponse = response.body();
+//                Log.e("test", "0"+contactResponse.getContacts().get(0).getMemberId());
+//                Log.e("test", "0"+contactResponse.getContacts().get(0).getMemberEmail());
                 retroAPICallback.onResponse(call, response, requestCode, null);
+//                Log.e(TAG, response.toString());
             }
 
             @Override
@@ -179,8 +186,9 @@ public final class BaseService {
 
     public static void deleteContact(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode, String contactId) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
+
             retroAPICallback.onNoNetwork(requestCode);
-            //Log.e(TAG, retroAPICallback.toString());
+            Log.e(TAG, retroAPICallback.toString());
             return;
         }
 
@@ -319,6 +327,7 @@ public final class BaseService {
     public static void addMeeting(final Context context, String userId ,String memberId ,String dateOfMeeting, String timeOfMeeting, String reasonForMeeting, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
             retroAPICallback.onNoNetwork(requestCode);
+            Log.e(TAG , memberId);
             return;
         }
         ProgressDialogFragment.showProgress(((AppCompatActivity) context).getSupportFragmentManager());
