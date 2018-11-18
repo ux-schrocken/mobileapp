@@ -93,6 +93,8 @@ public class MemberRequestResponse {
     }
 
     public String getMemberSocialAcc() {
+
+        // breakpoint data is seen here
         return memberSocialAcc;
     }
 

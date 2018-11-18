@@ -1,6 +1,7 @@
 package in.appnow.ypo.android.ui.dashboard_contact.mvp;
 
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import in.appnow.ypo.android.R;
 import in.appnow.ypo.android.interfaces.RetroAPICallback;
@@ -33,8 +34,13 @@ public class DashboardContactModel extends BaseModel {
     public void fetchTaskList(RetroAPICallback retroAPICallback, int requestCode) {
         BaseService.getTaskList(appCompatActivity,apiInterface,retroAPICallback,requestCode);
     }
+
+    //
     public void fetchContactList(RetroAPICallback retroAPICallback, int requestCode) {
+        Log.e("test", String.valueOf(requestCode));
         BaseService.getContactList(appCompatActivity,apiInterface,retroAPICallback,requestCode);
+
+       // Log.e('social', BaseService.getContactList(appCompatActivity,apiInterface,retroAPICallback,requestCode))
     }
 
     public void deleteContact(RetroAPICallback retroAPICallback,int requestCode,String contactId) {

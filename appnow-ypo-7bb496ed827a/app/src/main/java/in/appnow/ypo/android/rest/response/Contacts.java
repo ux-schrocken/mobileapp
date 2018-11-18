@@ -24,7 +24,8 @@ public class Contacts implements Parcelable{
     private String memberContactNum;
     @SerializedName("memberEmail")
     private String memberEmail;
-    @SerializedName("memberSocialAcc")
+    // memberSocialAcc changed to membersocialaccount
+    @SerializedName("membersocialaccount")
     private String memberSocialAcc;
     @SerializedName("memberId")
     private String memberId;
@@ -87,7 +88,6 @@ public class Contacts implements Parcelable{
     public String getMemberLoc() {
         return memberLoc;
     }
-
     public void setMemberLoc(String memberLoc) {
         this.memberLoc = memberLoc;
     }

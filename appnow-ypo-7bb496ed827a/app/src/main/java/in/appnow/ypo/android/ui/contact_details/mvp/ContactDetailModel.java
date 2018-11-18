@@ -31,6 +31,7 @@ public class ContactDetailModel extends BaseModel {
 
     public void getContactDetail(RetroAPICallback apiCallback, int requestCode, String contactId) {
         BaseService.getContactDetails(appCompatActivity, apiInterface, apiCallback, requestCode,contactId);
+
     }
 
     public void closeActivity() {

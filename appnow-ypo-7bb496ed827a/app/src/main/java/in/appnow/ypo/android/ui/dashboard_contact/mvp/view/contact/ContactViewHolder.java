@@ -53,7 +53,8 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
 
     private Context context;
     private int isRequestMeetingCall;
-    public static final String TAG = "MyActivity";
+    public static final String TAG = "Sam1Activity";
+    public static final String TAG2 = "Sam2Activity";
     private OnContactMoreOptionListener onContactMoreOptionListener;
     public ContactViewHolder(Context context, @NonNull View itemView, OnContactMoreOptionListener onContactMoreOptionListener, int isRequestMeetingCall) {
         super(itemView);
@@ -73,11 +74,17 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
             emailLabel.setText(response.getMemberEmail());
             contactLabel.setText(response.getMemberContactNum());
             socialLabel.setText(response.getMemberSocialAcc());
+
+            // breakpoint
+          //  Log.e(TAG, socialLabel.toString());
+
             VectorUtils.setVectorCompoundDrawable(locationLabel, context, R.drawable.ic_location_flag, 0, 0, 0, R.color.violet);
             VectorUtils.setVectorCompoundDrawable(emailLabel, context, R.drawable.ic_email, 0, 0, 0, R.color.violet);
             VectorUtils.setVectorCompoundDrawable(contactLabel, context, R.drawable.ic_contact_phone, 0, 0, 0, R.color.violet);
             VectorUtils.setVectorCompoundDrawable(socialLabel, context, R.drawable.ic_hashtag, 0, 0, 0, R.color.violet);
-//    Log.e(TAG,locationLabel+" "+locationLabel+" "+emailLabel+""+contactLabel+" "+socialLabel);
+
+            // breakpoint
+    //Log.e(TAG,locationLabel+" "+locationLabel+" "+emailLabel+""+contactLabel+" "+socialLabel);
             moreButton.setOnClickListener(view -> showMoreMenu(response));
 
             moreButton.setVisibility(View.VISIBLE);
@@ -100,6 +107,7 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
             }
 
         } else {
+            Log.e(TAG2,locationLabel+" "+emailLabel+""+contactLabel+" "+socialLabel);
             locationLabel.setVisibility(View.GONE);
             emailLabel.setVisibility(View.GONE);
             contactLabel.setVisibility(View.GONE);
