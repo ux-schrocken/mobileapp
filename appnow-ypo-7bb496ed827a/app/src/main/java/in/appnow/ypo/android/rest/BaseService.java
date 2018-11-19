@@ -168,12 +168,12 @@ public final class BaseService {
         call.enqueue(new Callback<ContactResponse>() {
             @Override
             public void onResponse(@NonNull Call<ContactResponse> call, @NonNull Response<ContactResponse> response) {
-                Log.e("test", "response"+response.toString());
-                ContactResponse contactResponse = response.body();
-                Log.e("test", "0"+contactResponse.getContacts().get(0).getMemberId());
-                Log.e("test", "0"+contactResponse.getContacts().get(0).getMemberSocialAcc());
+//                Log.e("test", "response"+response.toString());
+//                ContactResponse contactResponse = response.body();
+//                Log.e("test", "0"+contactResponse.getContacts().get(0).getMemberId());
+//                Log.e("test", "0"+contactResponse.getContacts().get(0).getMemberSocialAcc());
                 retroAPICallback.onResponse(call, response, requestCode, null);
-                Log.e(TAG, response.toString());
+//                Log.e(TAG, response.toString());
             }
 
             @Override
