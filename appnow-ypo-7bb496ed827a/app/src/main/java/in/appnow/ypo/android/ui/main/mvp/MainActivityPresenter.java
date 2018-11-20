@@ -24,12 +24,7 @@ public static final String TAG = "myactivity";
             onDashboardSelect();
         });
         view.onContactClick(view -> {
-            boolean isClicked = MainActivityPresenter.this.view.onBottomButtonClick(1);
-            if (isClicked) {
-
-                model.replaceContactFragment();
-
-            }
+            onContactSelect();
         });
         view.onMeetingClick(view -> {
             boolean isClicked = MainActivityPresenter.this.view.onBottomButtonClick(2);
@@ -49,10 +44,19 @@ public static final String TAG = "myactivity";
 
     }
 
-    private void onDashboardSelect() {
+    public void onDashboardSelect() {
         boolean isClicked = MainActivityPresenter.this.view.onBottomButtonClick(0);
         if (isClicked) {
             model.replaceDashboardFragment();
+        }
+    }
+
+    public void onContactSelect(){
+        boolean isClicked = MainActivityPresenter.this.view.onBottomButtonClick(1);
+        if (isClicked) {
+
+            model.replaceContactFragment();
+
         }
     }
 

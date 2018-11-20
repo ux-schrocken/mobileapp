@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -11,12 +12,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import in.appnow.ypo.android.R;
 import in.appnow.ypo.android.app_base.YPOApplication;
 import in.appnow.ypo.android.ui.main.dagger.DaggerMainActivityComponent;
 import in.appnow.ypo.android.ui.main.dagger.MainActivityComponent;
 import in.appnow.ypo.android.ui.main.dagger.MainActivityModule;
 import in.appnow.ypo.android.ui.main.mvp.MainActivityPresenter;
 import in.appnow.ypo.android.ui.main.mvp.MainActivityView;
+import in.appnow.ypo.android.ui.dashboard_contact.DashboardContactFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +44,18 @@ public class MainActivity extends AppCompatActivity {
         component.inject(this);
         setContentView(view);
         presenter.onCreate();
+
+
+//        SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefresh);
+//        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//
+//               presenter.onContactSelect(); //refreshData(); // your code
+//                pullToRefresh.setRefreshing(false);
+//            }
+//        });
+
     }
 
     public MainActivityComponent getComponent() {

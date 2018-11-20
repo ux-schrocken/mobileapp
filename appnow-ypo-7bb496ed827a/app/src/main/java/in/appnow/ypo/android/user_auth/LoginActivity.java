@@ -1,8 +1,11 @@
 package in.appnow.ypo.android.user_auth;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -17,6 +20,15 @@ import in.appnow.ypo.android.user_auth.mvp.LoginView;
  * Copyright (c) 2018 . All rights reserved.
  */
 public class LoginActivity extends AppCompatActivity {
+
+    public static void openAddNewLoginActivity(Context context) {
+       // Toast.makeText(context, "Logged Out!", Toast.LENGTH_SHORT);
+        Toast.makeText(context, "Logged Out!", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+        //Toast.makeText(context, "Logged Out!", Toast.LENGTH_SHORT);
+    }
 
     @Inject
     LoginView view;
@@ -33,6 +45,14 @@ public class LoginActivity extends AppCompatActivity {
                 .inject(this);
         setContentView(view);
         presenter.onCreate();
+    }
+
+    @Override
+    public void onBackPressed(){
+//        System.gc();
+//        System.exit(1);
+        moveTaskToBack(true);   //exit app
+
     }
 
     @Override
