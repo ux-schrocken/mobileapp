@@ -31,9 +31,12 @@ public interface APIInterface {
     @GET("getTaskList/{userId}")
     Call<TaskListResponse> getTaskList(@Path("userId") String userId);
 
-    @GET("memberRequest/{reqId}")
-    Call<MemberRequestResponse> memberRequest(@Path("reqId") String requestId, @Query("action") String action);
+    // sam edited : @POST instead of @GET
+//    @GET("memberRequest/{reqId}")
+//    Call<MemberRequestResponse> memberRequest(@Path("reqId") String requestId, @Query("action") String action);
 
+    @POST("memberRequest/{reqId}")
+    Call<MemberRequestResponse> memberRequest(@Path("reqId") String requestId);
 
     @GET("setShareDetails/{reqId}")
     Call<List<TaskListResponse>> shareDetails(@Path("reqId") String requestId);

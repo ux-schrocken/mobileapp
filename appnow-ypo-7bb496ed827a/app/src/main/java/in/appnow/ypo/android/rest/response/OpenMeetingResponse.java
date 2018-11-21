@@ -6,6 +6,9 @@ import com.google.gson.annotations.SerializedName;
  * Created by sonu on 12:54, 23/10/18
  * Copyright (c) 2018 . All rights reserved.
  */
+
+// gets data from getOpenMeetings() in BaseService.java
+
 public class OpenMeetingResponse {
     @SerializedName("dateOfMeeting")
     private String dateOfMeeting;

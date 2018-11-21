@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,9 +12,24 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.appnow.ypo.android.BuildConfig;
 import in.appnow.ypo.android.R;
+import in.appnow.ypo.android.app_base.YPOApplication;
+import in.appnow.ypo.android.dialogs.ProgressDialogFragment;
+import in.appnow.ypo.android.rest.APIInterface;
+import in.appnow.ypo.android.rest.response.MeetingResponse;
+import in.appnow.ypo.android.rest.response.MemberRequestResponse;
 import in.appnow.ypo.android.rest.response.OpenMeetingResponse;
 import in.appnow.ypo.android.utils.DateUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+// sam edited
+
+import in.appnow.ypo.android.interfaces.RetroAPICallback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import okhttp3.OkHttpClient;
 
 /**
  * Created by sonu on 12:46, 25/10/18
@@ -27,13 +43,17 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
     TextView dayLabel;
     @BindView(R.id.meeting_child_row_root_layout)
     LinearLayout rootLayout;
+    //MEETING_ROW_TITLE_LABEL
     @BindView(R.id.meeting_row_title_label)
     TextView titleLabel;
     @BindView(R.id.meeting_row_description_label)
     TextView descriptionLabel;
+    @BindView(R.id.meeting_row_with_person_name_label)
+    TextView withPersonName;
 
     private Context context;
     private OnRemoveMeetingListener onRemoveMeetingListener;
+    private String temp;
 
     public MeetingViewHolder(Context context, @NonNull View itemView, OnRemoveMeetingListener onRemoveMeetingListener) {
         super(itemView);
@@ -42,10 +62,14 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bindData(boolean isFirstItem, OpenMeetingResponse previousObject, OpenMeetingResponse response, boolean isEditMode) {
+    // gets the data from MeetingResponse
 
+    public void bindData(boolean isFirstItem, OpenMeetingResponse previousObject, OpenMeetingResponse response, boolean isEditMode) {
+        String memberId;
         titleLabel.setText(response.getReasonForMeeting());
+        memberId = response.getMemberId();
         descriptionLabel.setText(response.getTimeOfMeeting());
+        getMemberNamefromID(memberId);
 
         if (isFirstItem) {
             dayLabel.setVisibility(View.VISIBLE);
@@ -76,4 +100,40 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
     public interface OnRemoveMeetingListener {
         public void onRemoveMeeting(OpenMeetingResponse response);
     }
+
+
+    // sam : added
+    public void getMemberNamefromID( String memberId) {
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                //.client(httpClient)
+
+                .baseUrl(BuildConfig.END_POINT)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        APIInterface api = retrofit.create(APIInterface.class);
+
+        api.memberRequest(memberId).enqueue(new Callback<MemberRequestResponse>() {
+            @Override
+            public void onResponse(Call<MemberRequestResponse> call,
+                                   Response<MemberRequestResponse> response)
+            {
+              //  Log.d(TAG, "onResponse: ");
+                MemberRequestResponse memberRequestResponse = response.body();
+               // System.out.println("Light :"+memberRequestResponse.getMemberName());
+                withPersonName.setText("with "+memberRequestResponse.getMemberName());
+
+            }
+
+            @Override
+            public void onFailure(Call<MemberRequestResponse> call, Throwable t) {
+               // Log.d(TAG, "onFailure: ");
+            }
+        });
+
+    }
+
+
 }

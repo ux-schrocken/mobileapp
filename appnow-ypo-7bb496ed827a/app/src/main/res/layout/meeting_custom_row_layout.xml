@@ -51,6 +51,14 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/_14sdp"
             tools:text="11:00 - 11:30 AM with Jason Bourne" />
+
+        <TextView
+            android:id="@+id/meeting_row_with_person_name_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_14sdp"
+            tools:text="11:00 - 11:30 AM with Jason Bourne" />
     </LinearLayout>
     <!-- <android.support.v7.widget.RecyclerView
          android:id="@+id/meeting_row_recycler_view"

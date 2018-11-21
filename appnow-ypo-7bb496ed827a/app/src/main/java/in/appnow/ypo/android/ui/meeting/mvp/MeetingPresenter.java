@@ -38,7 +38,11 @@ public class MeetingPresenter implements BasePresenter, RetroAPICallback {
 
     private void fetchMeetings(int requestCode) {
         model.fetchMeetings(this, requestCode);
+        //model.fetchMemberData(this,requestCode);
     }
+
+
+
 
     @Override
     public void onDestroy() {
