@@ -71,16 +71,18 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         descriptionLabel.setText(response.getTimeOfMeeting());
         getMemberNamefromID(memberId);
 
+
+        // sam : changed from OPEN_MEETING_DATE_FORMAT to MEETING_DATE_FORMAT
         if (isFirstItem) {
             dayLabel.setVisibility(View.VISIBLE);
-            dayLabel.setText(DateUtils.parseDate(DateUtils.convertStringDateToMilliSecond(response.getDateOfMeeting(), DateUtils.OPEN_MEETING_DATE_FORMAT), DateUtils.OPEN_MEETING_DISPLAY_DATE_FORMAT));
+            dayLabel.setText(DateUtils.parseDate(DateUtils.convertStringDateToMilliSecond(response.getDateOfMeeting(), DateUtils.MEETING_DATE_FORMAT), DateUtils.OPEN_MEETING_DISPLAY_DATE_FORMAT));
         } else {
             if (previousObject != null) {
                 if (previousObject.getDateOfMeeting().equalsIgnoreCase(response.getDateOfMeeting())) {
                     dayLabel.setVisibility(View.INVISIBLE);
                 } else {
                     dayLabel.setVisibility(View.VISIBLE);
-                    dayLabel.setText(DateUtils.parseDate(DateUtils.convertStringDateToMilliSecond(response.getDateOfMeeting(), DateUtils.OPEN_MEETING_DATE_FORMAT), DateUtils.OPEN_MEETING_DISPLAY_DATE_FORMAT));
+                    dayLabel.setText(DateUtils.parseDate(DateUtils.convertStringDateToMilliSecond(response.getDateOfMeeting(), DateUtils.MEETING_DATE_FORMAT), DateUtils.OPEN_MEETING_DISPLAY_DATE_FORMAT));
                 }
             }
         }

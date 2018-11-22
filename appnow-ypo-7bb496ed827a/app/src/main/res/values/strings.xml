@@ -17,12 +17,13 @@
     </string-array>
 
     <string-array name="month_labels">
+        <item>SUN</item>
         <item>MON</item>
         <item>TUE</item>
         <item>WED</item>
         <item>THU</item>
         <item>FRI</item>
         <item>SAT</item>
-        <item>SUN</item>
+
     </string-array>
 </resources>
