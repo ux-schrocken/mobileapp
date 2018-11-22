@@ -18,7 +18,8 @@ public class OpenMeetingResponse {
     private String reasonForMeeting;
     @SerializedName("memberId")
     private String memberId;
-    @SerializedName("meetingId")
+    // sam : solved meetingID not deleting
+    @SerializedName("MeetingId")
     private String meetingId;
 
     public String getDateOfMeeting() {

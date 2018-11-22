@@ -21,6 +21,7 @@ import in.appnow.ypo.android.rest.response.MeetingResponse;
 import in.appnow.ypo.android.rest.response.MemberRequestResponse;
 import in.appnow.ypo.android.rest.response.OpenMeetingResponse;
 import in.appnow.ypo.android.utils.DateUtils;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,9 +52,13 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.meeting_row_with_person_name_label)
     TextView withPersonName;
 
+    // sam " added meetingidView to add meeting id to be used while deleting
+    @BindView(R.id.meetingIDView)
+    TextView meetingIdView;
+
+
     private Context context;
     private OnRemoveMeetingListener onRemoveMeetingListener;
-    private String temp;
 
     public MeetingViewHolder(Context context, @NonNull View itemView, OnRemoveMeetingListener onRemoveMeetingListener) {
         super(itemView);
@@ -69,6 +74,7 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         titleLabel.setText(response.getReasonForMeeting());
         memberId = response.getMemberId();
         descriptionLabel.setText(response.getTimeOfMeeting());
+        meetingIdView.setText(response.getMeetingId());
         getMemberNamefromID(memberId);
 
 
@@ -90,7 +96,10 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         if (isEditMode) {
             deleteButton.setVisibility(View.VISIBLE);
             deleteButton.setOnClickListener(view -> {
+                meetingIdView.getText();
                 if (onRemoveMeetingListener != null) {
+                    //from here meetingId = null
+                   String temp= response.getMeetingId();
                     onRemoveMeetingListener.onRemoveMeeting(response);
                 }
             });
@@ -105,7 +114,7 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
 
 
     // sam : added
-    public void getMemberNamefromID( String memberId) {
+    public void getMemberNamefromID(String memberId) {
 
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -120,21 +129,40 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         api.memberRequest(memberId).enqueue(new Callback<MemberRequestResponse>() {
             @Override
             public void onResponse(Call<MemberRequestResponse> call,
-                                   Response<MemberRequestResponse> response)
-            {
-              //  Log.d(TAG, "onResponse: ");
+                                   Response<MemberRequestResponse> response) {
+                //  Log.d(TAG, "onResponse: ");
                 MemberRequestResponse memberRequestResponse = response.body();
-               // System.out.println("Light :"+memberRequestResponse.getMemberName());
-                withPersonName.setText("with "+memberRequestResponse.getMemberName());
+                // System.out.println("Light :"+memberRequestResponse.getMemberName());
+                withPersonName.setText("with " + memberRequestResponse.getMemberName());
 
             }
 
             @Override
             public void onFailure(Call<MemberRequestResponse> call, Throwable t) {
-               // Log.d(TAG, "onFailure: ");
+                // Log.d(TAG, "onFailure: ");
             }
         });
 
+    }
+
+
+    public void removeMeetingfromID(String removeMeetingID){
+        Retrofit retrofit = new Retrofit.Builder()
+                //.client(httpClient)
+                .baseUrl(BuildConfig.END_POINT)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        APIInterface api = retrofit.create(APIInterface.class);
+        api.removeMeetings(removeMeetingID).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                // use response.code, response.headers, etc.
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                // handle failure
+            }
+        });
     }
 
 

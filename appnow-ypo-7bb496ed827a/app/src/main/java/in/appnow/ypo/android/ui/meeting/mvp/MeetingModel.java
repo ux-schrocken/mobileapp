@@ -26,7 +26,6 @@ public class MeetingModel extends BaseModel {
     public void fetchMeetings(RetroAPICallback apiCallback, int requestCode) {
         BaseService.getOpenMeetings(appCompatActivity, apiInterface, apiCallback, requestCode);
     }
-
     public void removeMeeting(RetroAPICallback retroAPICallback, int requestCode,String meetingId) {
         BaseService.removeMeetings(appCompatActivity,apiInterface,retroAPICallback, requestCode,meetingId);
     }

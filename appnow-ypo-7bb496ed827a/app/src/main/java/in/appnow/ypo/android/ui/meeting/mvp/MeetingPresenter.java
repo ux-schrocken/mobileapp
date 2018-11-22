@@ -34,14 +34,18 @@ public class MeetingPresenter implements BasePresenter, RetroAPICallback {
     @Override
     public void onCreate() {
         fetchMeetings(FETCH_OPEN_MEETINGS_REQUEST_CODE);
+        //removetheMeeting(REMOVE_MEETING_REQUEST_CODE);
     }
 
     private void fetchMeetings(int requestCode) {
         model.fetchMeetings(this, requestCode);
+
         //model.fetchMemberData(this,requestCode);
     }
 
-
+    private void removetheMeeting(int requestCode){
+      //  model.removeMeeting(this, requestCode, String meetingId);
+    }
 
 
     @Override
@@ -52,11 +56,12 @@ public class MeetingPresenter implements BasePresenter, RetroAPICallback {
     @Override
     public void onResponse(Call<?> call, Response<?> response, int requestCode, @Nullable Object request) {
         switch (requestCode) {
-            case REFRESH_OPEN_MEETINGS_REQUEST_CODE:
+            case REFRESH_OPEN_MEETINGS_REQUEST_CODE:break;
             case FETCH_OPEN_MEETINGS_REQUEST_CODE:
                 if (response.isSuccessful()) {
                     List<OpenMeetingResponse> openMeetingResponseList = (List<OpenMeetingResponse>) response.body();
                     if (openMeetingResponseList != null && openMeetingResponseList.size() > 0) {
+                        // here meetingID = null
                         view.updateOpenMeetings(requestCode==REFRESH_OPEN_MEETINGS_REQUEST_CODE,openMeetingResponseList, response1 -> model.removeMeeting(MeetingPresenter.this, REMOVE_MEETING_REQUEST_CODE,response1.getMeetingId()));
                     } else {
                         view.isListEmpty(true, "No meetings.");
@@ -70,7 +75,7 @@ public class MeetingPresenter implements BasePresenter, RetroAPICallback {
                     fetchMeetings(REFRESH_OPEN_MEETINGS_REQUEST_CODE);
                     ToastUtils.shortToast("Meeting removed successfully.");
                 } else {
-                    ToastUtils.shortToast("Oops!! Some error occurred.");
+                    ToastUtils.shortToast("Oops!! Some error occurred onResponse removing Meeting.");
                 }
                 break;
         }
@@ -86,7 +91,7 @@ public class MeetingPresenter implements BasePresenter, RetroAPICallback {
                 break;
             case REMOVE_MEETING_REQUEST_CODE:
                 Logger.ErrorLog(TAG, "Remove Meetings Error : " + t.getLocalizedMessage());
-                ToastUtils.shortToast("Oops!! Some error occurred.");
+                ToastUtils.shortToast("Oops!! Some error occurred onFailure removing Meeting.");
                 break;
         }
     }
