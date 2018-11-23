@@ -53,8 +53,8 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
     TextView withPersonName;
 
     // sam " added meetingidView to add meeting id to be used while deleting
-    @BindView(R.id.meetingIDView)
-    TextView meetingIdView;
+//    @BindView(R.id.meetingIDView)
+//    TextView meetingIdView;
 
 
     private Context context;
@@ -96,7 +96,8 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         if (isEditMode) {
             deleteButton.setVisibility(View.VISIBLE);
             deleteButton.setOnClickListener(view -> {
-                meetingIdView.getText();
+                // sam edited
+              //  meetingIdView.getText();
                 if (onRemoveMeetingListener != null) {
                     //from here meetingId = null
                    String temp= response.getMeetingId();
