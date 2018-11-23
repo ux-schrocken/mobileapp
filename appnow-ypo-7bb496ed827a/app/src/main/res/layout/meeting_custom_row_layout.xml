@@ -21,10 +21,10 @@
         android:id="@+id/meeting_row_day_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="right"
         android:paddingLeft="@dimen/_15sdp"
-        android:paddingRight="@dimen/_20sdp"
-        android:textSize="@dimen/_20sdp"
+        android:paddingRight="@dimen/_10sdp"
+        android:textSize="@dimen/_18sdp"
         tools:text="20\nSat" />
 
 
