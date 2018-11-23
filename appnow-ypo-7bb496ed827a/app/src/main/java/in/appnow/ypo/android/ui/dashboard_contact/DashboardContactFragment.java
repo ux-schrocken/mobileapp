@@ -20,6 +20,7 @@ import in.appnow.ypo.android.ui.dashboard_contact.mvp.DashboardContactPresenter;
 import in.appnow.ypo.android.ui.dashboard_contact.mvp.view.DashboardContactView;
 import in.appnow.ypo.android.ui.main.MainActivity;
 import in.appnow.ypo.android.ui.meeting_request.MeetingRequestActivity;
+import in.appnow.ypo.android.ui.profile.ProfileFragment;
 import in.appnow.ypo.android.user_auth.LoginActivity;
 import in.appnow.ypo.android.utils.FragmentUtils;
 
@@ -87,6 +88,9 @@ public class DashboardContactFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_view_profile:
+                getFragmentManager().beginTransaction().replace(R.id.main_container, new ProfileFragment()).commit();
+                break;
             case R.id.action_new_contact:
                 AddNewContactActivity.openAddNewContactActivity(getContext());
                 break;

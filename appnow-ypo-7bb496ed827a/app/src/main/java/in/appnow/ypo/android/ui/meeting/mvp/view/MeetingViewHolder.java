@@ -74,7 +74,7 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         titleLabel.setText(response.getReasonForMeeting());
         memberId = response.getMemberId();
         descriptionLabel.setText(response.getTimeOfMeeting());
-        meetingIdView.setText(response.getMeetingId());
+       // meetingIdView.setText(response.getMeetingId());
         getMemberNamefromID(memberId);
 
 

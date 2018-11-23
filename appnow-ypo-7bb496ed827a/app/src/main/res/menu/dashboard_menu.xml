@@ -8,6 +8,9 @@
         app:showAsAction="always">
         <menu>
             <item
+                android:id="@+id/action_view_profile"
+                android:title="Welcome Sameer Sitre"/>
+            <item
                 android:id="@+id/action_new_contact"
                 android:icon="@drawable/ic_add_contact_gray"
                 android:title="New Contact" />
