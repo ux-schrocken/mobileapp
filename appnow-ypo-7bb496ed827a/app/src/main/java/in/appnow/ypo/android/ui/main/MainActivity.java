@@ -12,14 +12,24 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import in.appnow.ypo.android.BuildConfig;
 import in.appnow.ypo.android.R;
 import in.appnow.ypo.android.app_base.YPOApplication;
+import in.appnow.ypo.android.rest.APIInterface;
+import in.appnow.ypo.android.rest.response.MemberRequestResponse;
 import in.appnow.ypo.android.ui.main.dagger.DaggerMainActivityComponent;
 import in.appnow.ypo.android.ui.main.dagger.MainActivityComponent;
 import in.appnow.ypo.android.ui.main.dagger.MainActivityModule;
 import in.appnow.ypo.android.ui.main.mvp.MainActivityPresenter;
 import in.appnow.ypo.android.ui.main.mvp.MainActivityView;
 import in.appnow.ypo.android.ui.dashboard_contact.DashboardContactFragment;
+import in.appnow.ypo.android.utils.StringUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     MainActivityView view;
     @Inject
     MainActivityPresenter presenter;
+
+
     private MainActivityComponent component;
 
     public static void openMainActivity(Context context) {
@@ -46,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         presenter.onCreate();
 
 
+
 //        SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefresh);
 //        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override
@@ -57,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
     }
+
 
     public MainActivityComponent getComponent() {
         return component;
