@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     MainActivityPresenter presenter;
 
-
+public int dashboardplacer=0;
     private MainActivityComponent component;
 
     public static void openMainActivity(Context context) {

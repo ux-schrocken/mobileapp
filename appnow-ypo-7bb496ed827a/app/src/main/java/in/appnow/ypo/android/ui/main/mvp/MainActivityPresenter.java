@@ -2,6 +2,7 @@ package in.appnow.ypo.android.ui.main.mvp;
 
 import android.view.View;
 import android.util.Log;
+
 import in.appnow.ypo.android.mvp_base.BasePresenter;
 
 /**
@@ -11,7 +12,8 @@ import in.appnow.ypo.android.mvp_base.BasePresenter;
 public class MainActivityPresenter implements BasePresenter {
     private final MainActivityView view;
     private final MainActivityModel model;
-public static final String TAG = "myactivity";
+    public static final String TAG = "myactivity";
+
     public MainActivityPresenter(MainActivityView view, MainActivityModel model) {
         this.view = view;
         this.model = model;
@@ -43,10 +45,31 @@ public static final String TAG = "myactivity";
         });
 
     }
-    public void swipe(){
-        model.replaceDashboardFragment();
 
-      //  presenter.onContactSelect(); //refreshData(); // your code
+    public void swipe() {
+
+switch(view.currentPosition){
+
+    case 0:
+        model.replaceDashboardFragment();
+        break;
+    case 1:
+        model.replaceContactFragment();
+        break;
+    case 2:
+        model.replaceMeetingFragment();
+        break;
+    case 3:
+        model.replaceProfileFragment();
+        break;
+    default:
+
+        break;
+
+
+}
+
+        //  presenter.onContactSelect(); //refreshData(); // your code
     }
 
     public void onDashboardSelect() {
@@ -56,7 +79,7 @@ public static final String TAG = "myactivity";
         }
     }
 
-    public void onContactSelect(){
+    public void onContactSelect() {
         boolean isClicked = MainActivityPresenter.this.view.onBottomButtonClick(1);
         if (isClicked) {
 

@@ -33,7 +33,6 @@ public class DashboardContactFragment extends Fragment {
 
     private static final String ARG_CONTACT = "arg_contact";
     private Context context;
-
     @Inject
     DashboardContactView view;
     @Inject
@@ -52,17 +51,12 @@ public class DashboardContactFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             isContact = getArguments().getInt(ARG_CONTACT, 0);
         }
-
-
-
-
     }
 
     @Nullable
@@ -93,9 +87,7 @@ public class DashboardContactFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_view_profile:
-                getFragmentManager().beginTransaction().replace(R.id.main_container, new ProfileFragment()).commit();
-                break;
+
             case R.id.action_new_contact:
                 AddNewContactActivity.openAddNewContactActivity(getContext());
                 break;

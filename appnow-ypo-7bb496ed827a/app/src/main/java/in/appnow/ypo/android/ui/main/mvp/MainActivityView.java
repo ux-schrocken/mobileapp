@@ -43,7 +43,7 @@ public class MainActivityView extends FrameLayout {
     @BindView(R.id.create_new_button)
     ImageView createNewButton;
 
-    private int currentPosition = -1;
+    public int currentPosition = -1;
 
     public MainActivityView(@NonNull AppCompatActivity context) {
         super(context);
@@ -51,10 +51,10 @@ public class MainActivityView extends FrameLayout {
         ButterKnife.bind(this, this);
 
         // sam added
-        getMemberNamefromID( StringUtils.USER_ID);
+       // getMemberNamefromID(StringUtils.USER_ID);
 
         context.setSupportActionBar(toolbar);
-        if (context.getSupportActionBar()!=null){
+        if (context.getSupportActionBar() != null) {
             context.getSupportActionBar().setTitle("");
         }
     }
@@ -81,43 +81,45 @@ public class MainActivityView extends FrameLayout {
 
 
     // sam : added
-    public void getMemberNamefromID(String memberId) {
-
-        Retrofit retrofit = new Retrofit.Builder()
-                //.client(httpClient)
-
-                .baseUrl(BuildConfig.END_POINT)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        APIInterface api = retrofit.create(APIInterface.class);
-
-        api.memberRequest(memberId).enqueue(new Callback<MemberRequestResponse>() {
-            @Override
-            public void onResponse(Call<MemberRequestResponse> call,
-                                   Response<MemberRequestResponse> response) {
-                //  Log.d(TAG, "onResponse: ");
-                MemberRequestResponse memberRequestResponse = response.body();
-                // System.out.println("Light :"+memberRequestResponse.getMemberName());
-                TextView username = (TextView) findViewById(R.id.username_title);
-username.setText(memberRequestResponse.getMemberName());
-               // R.id.username_title.setText("with " + memberRequestResponse.getMemberName());
-
-            }
-
-            @Override
-            public void onFailure(Call<MemberRequestResponse> call, Throwable t) {
-                // Log.d(TAG, "onFailure: ");
-            }
-        });
-
-    }
-
+//    public void getMemberNamefromID(String memberId) {
+//
+//        Retrofit retrofit = new Retrofit.Builder()
+//                //.client(httpClient)
+//
+//                .baseUrl(BuildConfig.END_POINT)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        APIInterface api = retrofit.create(APIInterface.class);
+//
+//        api.memberRequest(memberId).enqueue(new Callback<MemberRequestResponse>() {
+//            @Override
+//            public void onResponse(Call<MemberRequestResponse> call,
+//                                   Response<MemberRequestResponse> response) {
+//                //  Log.d(TAG, "onResponse: ");
+//                MemberRequestResponse memberRequestResponse = response.body();
+//                // System.out.println("Light :"+memberRequestResponse.getMemberName());
+//                TextView username = (TextView) findViewById(R.id.username_title);
+//                username.setText(memberRequestResponse.getMemberName());
+//                // R.id.username_title.setText("with " + memberRequestResponse.getMemberName());
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<MemberRequestResponse> call, Throwable t) {
+//                // Log.d(TAG, "onFailure: ");
+//            }
+//        });
+//
+//    }
 
 
     public boolean onBottomButtonClick(int position) {
+
         if (currentPosition == position)
+
             return false;
+
         currentPosition = position;
         switch (position) {
             case 0:
