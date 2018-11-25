@@ -92,8 +92,12 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder {
         memberSinceLabel.setText(response.getMembershipDate());
 
         if (response.getTaskType().equalsIgnoreCase("contact")) {
+            giveAccessLabel.setText("Give Access");
+            denyRequestLabel.setText("Deny Access");
             typeLabel.setTextColor(violetColor);
         } else if (response.getTaskType().equalsIgnoreCase("meeting")) {
+            giveAccessLabel.setText("Accept\nMeeting");
+            denyRequestLabel.setText("Deny\nMeeting");
             typeLabel.setTextColor(orangeColor);
         } else {
             typeLabel.setTextColor(gunmetalColor);
