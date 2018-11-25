@@ -40,7 +40,6 @@ public class DashboardContactModel extends BaseModel {
         Log.e("test", String.valueOf(requestCode));
         BaseService.getContactList(appCompatActivity,apiInterface,retroAPICallback,requestCode);
 
-       // Log.e('social', BaseService.getContactList(appCompatActivity,apiInterface,retroAPICallback,requestCode))
     }
 
     public void deleteContact(RetroAPICallback retroAPICallback,int requestCode,String contactId) {
@@ -78,4 +77,8 @@ public class DashboardContactModel extends BaseModel {
         ContactDetailActivity.openContactDetailsActivity(appCompatActivity, contactId);
 
     }
+    public void replaceDashboardFragment() {
+        FragmentUtils.replaceFragment(appCompatActivity.getSupportFragmentManager(), R.id.main_container, DashboardContactFragment.newInstance(FragmentUtils.DASHBOARD), FragmentUtils.DASHBOARD_FRAGMENT, false);
+    }
+
 }

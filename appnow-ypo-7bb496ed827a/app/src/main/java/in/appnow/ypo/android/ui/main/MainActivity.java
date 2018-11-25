@@ -59,15 +59,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefresh);
-//        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//
-//               presenter.onContactSelect(); //refreshData(); // your code
-//                pullToRefresh.setRefreshing(false);
-//            }
-//        });
+        SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.swipe();
+
+                pullToRefresh.setRefreshing(false);
+            }
+        });
 
     }
 

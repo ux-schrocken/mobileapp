@@ -43,6 +43,11 @@ public static final String TAG = "myactivity";
         });
 
     }
+    public void swipe(){
+        model.replaceDashboardFragment();
+
+      //  presenter.onContactSelect(); //refreshData(); // your code
+    }
 
     public void onDashboardSelect() {
         boolean isClicked = MainActivityPresenter.this.view.onBottomButtonClick(0);

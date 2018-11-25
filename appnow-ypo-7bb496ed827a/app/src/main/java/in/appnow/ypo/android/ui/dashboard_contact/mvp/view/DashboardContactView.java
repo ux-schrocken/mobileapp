@@ -43,6 +43,9 @@ public class DashboardContactView extends FrameLayout {
     @BindString(R.string.total_contact_message)
     String totalContactsString;
 
+    @BindView(R.id.dashboard_all_button)
+    TextView allclick;
+
     public DashboardContactView(@NonNull Context context) {
         super(context);
         inflate(context, R.layout.dashboard_contact_fragment, this);
@@ -66,6 +69,10 @@ public class DashboardContactView extends FrameLayout {
             emptyLabel.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void allClick(OnClickListener onClickListener){
+        allclick.setOnClickListener(onClickListener);
     }
 
     public void updateTaskList(TaskListResponse taskListResponseList, DashboardViewHolder.OnDenyOptionListener onDenyOptionListener, DashboardViewHolder.OnAcceptOptionListener onAcceptOptionListener) {

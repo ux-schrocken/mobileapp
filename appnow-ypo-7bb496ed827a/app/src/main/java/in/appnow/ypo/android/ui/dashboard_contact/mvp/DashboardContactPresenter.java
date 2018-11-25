@@ -52,6 +52,10 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
         } else {
             fetchTaskList();
         }
+
+        view.allClick(view->{
+            model.replaceDashboardFragment();
+        });
     }
 
     private void fetchTaskList() {

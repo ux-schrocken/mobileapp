@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import javax.inject.Inject;
 
@@ -58,6 +59,10 @@ public class DashboardContactFragment extends Fragment {
         if (getArguments() != null) {
             isContact = getArguments().getInt(ARG_CONTACT, 0);
         }
+
+
+
+
     }
 
     @Nullable

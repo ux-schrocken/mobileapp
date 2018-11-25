@@ -29,18 +29,32 @@ public class FragmentUtils {
 
 
     public static void replaceFragment(FragmentManager fragmentManager, int containerId, Fragment fragment, String tag, boolean isAddToBackStack) {
-        if (isFragmentReplaced(fragmentManager, tag) == null) {
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+     //   if (isFragmentReplaced(fragmentManager, tag) == null) {
+
+           final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(containerId, fragment, tag);
+            fragmentTransaction.detach(fragment);
+            fragmentTransaction.attach(fragment);
+
 
             if (isAddToBackStack) {
                 fragmentTransaction.addToBackStack(tag);
             }
             fragmentTransaction.commit();
-        }
+       // }
     }
 
     public static Fragment isFragmentReplaced(FragmentManager fragmentManager, String tag) {
         return fragmentManager.findFragmentByTag(tag);
     }
 }
+
+/*
+*
+Fragment frg = null;
+frg = getSupportFragmentManager().findFragmentByTag("Your_Fragment_TAG");
+final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+ft.detach(frg);
+ft.attach(frg);
+ft.commit();
+* */
