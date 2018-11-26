@@ -1,5 +1,6 @@
 package in.appnow.ypo.android.ui.dashboard_contact.mvp;
 
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 
 import java.util.List;
@@ -39,11 +40,11 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
     private int isContact;
     private Tasks tasks = null;
     private int position = -1;
+    public int addColor = 0;
     public DashboardContactPresenter(DashboardContactView view, DashboardContactModel model) {
         this.view = view;
         this.model = model;
     }
-    //public static final String TAG = "MyActivity";
 
     @Override
     public void onCreate() {
@@ -55,8 +56,23 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
 
         view.allClick(view->{
             model.replaceDashboardFragment();
+            abc(1);
         });
+
+        view.acceptedClick(view->{
+            abc(2);
+        });
+
+        view.deniedClick(view->{
+            abc(3);
+        });
+
     }
+
+    public void abc(int temp){
+        view.colorChanger(temp);
+    }
+
 
     private void fetchTaskList() {
         model.fetchTaskList(this, FETCH_TASK_LIST_REQUEST_CODE);
