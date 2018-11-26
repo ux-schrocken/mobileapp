@@ -1,6 +1,7 @@
 package in.appnow.ypo.android.ui.dashboard_contact.mvp.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,15 +40,18 @@ public class DashboardContactView extends FrameLayout {
     public RecyclerView recyclerView;
     @BindView(R.id.empty_list_label)
     TextView emptyLabel;
-
     @BindString(R.string.active_request_message)
     String activeRequestString;
     @BindString(R.string.total_contact_message)
     String totalContactsString;
-
     @BindView(R.id.dashboard_all_button)
-    TextView allclick;
+    TextView allButton;
+    @BindView(R.id.dashboard_accepted_button)
+    TextView acceptedButton;
+    @BindView(R.id.dashboard_denied_button)
+    TextView deniedButton;
     MainActivityView mainActivityView;
+public int changer =0;
     public DashboardContactView(@NonNull Context context) {
         super(context);
         inflate(context, R.layout.dashboard_contact_fragment, this);
@@ -72,14 +76,67 @@ public class DashboardContactView extends FrameLayout {
             recyclerView.setVisibility(View.VISIBLE);
         }
     }
-// sam edited
-    public void allClick(OnClickListener onClickListener){
-        allclick.setOnClickListener(onClickListener);
+
+    // sam edited
+    public void allClick(OnClickListener onClickListener) {
+        allButton.setOnClickListener(onClickListener);
+
+    }
+
+    public void acceptedClick(OnClickListener onClickListener) {
+        acceptedButton.setOnClickListener(onClickListener);
+    }
+
+    public void deniedClick(OnClickListener onClickListener){
+        deniedButton.setOnClickListener((onClickListener));
+    }
+
+
+    public void colorChanger(int changer) {
+        switch (changer) {
+            case 1:
+                allButton.setTextColor(Color.parseColor("#FFFFFF"));
+                allButton.setBackgroundColor(Color.parseColor("#E16E38"));
+
+                acceptedButton.setTextColor(Color.parseColor("#E16E38"));
+                acceptedButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+                deniedButton.setTextColor(Color.parseColor("#E16E38"));
+                deniedButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                break;
+
+            case 2:
+                allButton.setTextColor(Color.parseColor("#E16E38"));
+                allButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+                acceptedButton.setTextColor(Color.parseColor("#FFFFFF"));
+                acceptedButton.setBackgroundColor(Color.parseColor("#E16E38"));
+
+                deniedButton.setTextColor(Color.parseColor("#E16E38"));
+                deniedButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                break;
+
+            case 3:
+                allButton.setTextColor(Color.parseColor("#E16E38"));
+                allButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+                acceptedButton.setTextColor(Color.parseColor("#E16E38"));
+                acceptedButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+                deniedButton.setTextColor(Color.parseColor("#FFFFFF"));
+                deniedButton.setBackgroundColor(Color.parseColor("#E16E38"));
+                break;
+
+            default:
+
+                break;
+
+        }
     }
 
     public void updateTaskList(TaskListResponse taskListResponseList, DashboardViewHolder.OnDenyOptionListener onDenyOptionListener, DashboardViewHolder.OnAcceptOptionListener onAcceptOptionListener) {
         DashboardAdapter adapter = new DashboardAdapter();
-        adapter.setonDenyOptionListener(onDenyOptionListener,onAcceptOptionListener);
+        adapter.setonDenyOptionListener(onDenyOptionListener, onAcceptOptionListener);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         adapter.swapData(taskListResponseList.getTasksList());
