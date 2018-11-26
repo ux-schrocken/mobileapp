@@ -24,6 +24,8 @@ import in.appnow.ypo.android.ui.dashboard_contact.mvp.view.contact.ContactAdapte
 import in.appnow.ypo.android.ui.dashboard_contact.mvp.view.contact.ContactViewHolder;
 import in.appnow.ypo.android.ui.dashboard_contact.mvp.view.dashboard.DashboardAdapter;
 import in.appnow.ypo.android.ui.dashboard_contact.mvp.view.dashboard.DashboardViewHolder;
+import in.appnow.ypo.android.ui.main.MainActivity;
+import in.appnow.ypo.android.ui.main.mvp.MainActivityView;
 
 /**
  * Created by sonu on 18:13, 18/10/18
@@ -45,7 +47,7 @@ public class DashboardContactView extends FrameLayout {
 
     @BindView(R.id.dashboard_all_button)
     TextView allclick;
-
+    MainActivityView mainActivityView;
     public DashboardContactView(@NonNull Context context) {
         super(context);
         inflate(context, R.layout.dashboard_contact_fragment, this);
@@ -70,7 +72,7 @@ public class DashboardContactView extends FrameLayout {
             recyclerView.setVisibility(View.VISIBLE);
         }
     }
-
+// sam edited
     public void allClick(OnClickListener onClickListener){
         allclick.setOnClickListener(onClickListener);
     }

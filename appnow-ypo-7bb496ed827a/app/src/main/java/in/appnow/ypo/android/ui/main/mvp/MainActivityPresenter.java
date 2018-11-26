@@ -22,12 +22,13 @@ public class MainActivityPresenter implements BasePresenter {
     @Override
     public void onCreate() {
         onDashboardSelect();
-        view.onDashboardClick(view -> {
-            onDashboardSelect();
-        });
+        view.onDashboardClick(view -> onDashboardSelect());
         view.onContactClick(view -> {
             onContactSelect();
         });
+
+
+
         view.onMeetingClick(view -> {
             boolean isClicked = MainActivityPresenter.this.view.onBottomButtonClick(2);
             if (isClicked) {
@@ -46,30 +47,26 @@ public class MainActivityPresenter implements BasePresenter {
 
     }
 
+    // sam added
     public void swipe() {
 
-switch(view.currentPosition){
+        switch (view.currentPosition) {
 
-    case 0:
-        model.replaceDashboardFragment();
-        break;
-    case 1:
-        model.replaceContactFragment();
-        break;
-    case 2:
-        model.replaceMeetingFragment();
-        break;
-    case 3:
-        model.replaceProfileFragment();
-        break;
-    default:
-
-        break;
-
-
-}
-
-        //  presenter.onContactSelect(); //refreshData(); // your code
+            case 0:
+                model.replaceDashboardFragment();
+                break;
+            case 1:
+                model.replaceContactFragment();
+                break;
+            case 2:
+                model.replaceMeetingFragment();
+                break;
+            case 3:
+                model.replaceProfileFragment();
+                break;
+            default:
+                break;
+        }
     }
 
     public void onDashboardSelect() {

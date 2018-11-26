@@ -37,13 +37,13 @@ public class MainActivity extends AppCompatActivity {
     MainActivityView view;
     @Inject
     MainActivityPresenter presenter;
-
-public int dashboardplacer=0;
+public int dashboardPositionGlobalVar = -1;
     private MainActivityComponent component;
 
     public static void openMainActivity(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
+
     }
 
     @Override
@@ -68,6 +68,7 @@ public int dashboardplacer=0;
                 pullToRefresh.setRefreshing(false);
             }
         });
+        presenter.swipe();
 
     }
 

@@ -2,12 +2,15 @@ package in.appnow.ypo.android.ui.contact_details.mvp;
 
 import android.support.v7.app.AppCompatActivity;
 
+import in.appnow.ypo.android.R;
 import in.appnow.ypo.android.interfaces.RetroAPICallback;
 import in.appnow.ypo.android.mvp_base.BaseModel;
 import in.appnow.ypo.android.rest.APIInterface;
 import in.appnow.ypo.android.rest.BaseService;
+import in.appnow.ypo.android.ui.dashboard_contact.DashboardContactFragment;
 import in.appnow.ypo.android.ui.result.ResultActivity;
 import in.appnow.ypo.android.ui.result.ResultEnum;
+import in.appnow.ypo.android.utils.FragmentUtils;
 
 import static in.appnow.ypo.android.utils.StringUtils.USER_ID;
 
@@ -35,6 +38,7 @@ public class ContactDetailModel extends BaseModel {
     }
 
     public void closeActivity() {
+
         appCompatActivity.finish();
     }
 
