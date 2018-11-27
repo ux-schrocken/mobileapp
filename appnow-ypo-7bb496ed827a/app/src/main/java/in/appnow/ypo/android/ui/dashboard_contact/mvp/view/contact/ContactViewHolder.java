@@ -142,13 +142,13 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
 
         popup.setOnMenuItemClickListener(menuItem -> {
             switch (menuItem.getItemId()) {
-                case R.id.action_view_full_details:
-                    if (onContactMoreOptionListener != null) {
-                        onContactMoreOptionListener.onViewDetails(response);
-                    } else {
-                        ToastUtils.shortToast("Oops!! Unknown error occurred.");
-                    }
-                    break;
+//                case R.id.action_view_full_details:
+//                    if (onContactMoreOptionListener != null) {
+//                        onContactMoreOptionListener.onViewDetails(response);
+//                    } else {
+//                        ToastUtils.shortToast("Oops!! Unknown error occurred.");
+//                    }
+//                    break;
                 case R.id.action_schedule_meeting:
                     MeetingRequestActivity.openMeetingRequestActivity(context, response);
                     break;
