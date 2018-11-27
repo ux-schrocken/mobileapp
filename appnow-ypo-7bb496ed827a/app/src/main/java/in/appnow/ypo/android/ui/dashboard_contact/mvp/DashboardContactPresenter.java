@@ -11,7 +11,9 @@ import in.appnow.ypo.android.rest.response.ContactResponse;
 import in.appnow.ypo.android.rest.response.Contacts;
 import in.appnow.ypo.android.rest.response.TaskListResponse;
 import in.appnow.ypo.android.rest.response.Tasks;
+
 import android.util.Log;
+
 import in.appnow.ypo.android.ui.contact_details.ContactDetailActivity;
 import in.appnow.ypo.android.ui.dashboard_contact.mvp.view.DashboardContactView;
 import in.appnow.ypo.android.ui.dashboard_contact.mvp.view.contact.ContactViewHolder;
@@ -30,8 +32,14 @@ import retrofit2.Response;
  */
 public class DashboardContactPresenter implements BasePresenter, RetroAPICallback {
     private static final int FETCH_TASK_LIST_REQUEST_CODE = 1;
+    private static final int FETCH_ACCEPTED_TASK_LIST_REQUEST_CODE = 6;
+    private static final int FETCH_DENIED_TASK_LIST_REQUEST_CODE = 7;
+
     private static final String TAG = DashboardContactPresenter.class.getSimpleName();
     private static final int FETCH_CONTACT_LIST_REQUEST_CODE = 2;
+    private static final int FETCH_ACCEPTED_CONTACT_LIST_REQUEST_CODE = 8;
+    private static final int FETCH_DENIED_CONTACT_LIST_REQUEST_CODE = 9;
+
     private static final int DELETE_CONTACT_REQUEST_CODE = 3;
     private static final int DENY_REQUEST_CODE = 4;
     private static final int ACCEPT_MEETING_REQUEST_CODE = 5;
@@ -41,6 +49,7 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
     private Tasks tasks = null;
     private int position = -1;
     public int addColor = 0;
+
     public DashboardContactPresenter(DashboardContactView view, DashboardContactModel model) {
         this.view = view;
         this.model = model;
@@ -54,22 +63,27 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
             fetchTaskList();
         }
 
-        view.allClick(view->{
-            model.replaceDashboardFragment();
-            abc(1);
+        view.allClick(view -> {
+            fetchContactList();
+            model.replaceContactFragment();
+
+            //abc(1);
         });
 
-        view.acceptedClick(view->{
-            abc(2);
+        view.acceptedClick(view -> {
+            fetchContactAcceptedList();
+            model.replaceAcceptedContactFragment();
+           // abc(2);
         });
 
-        view.deniedClick(view->{
-            abc(3);
+        view.deniedClick(view -> {
+            fetchContactDeniedList();
+            model.replaceContactDeniedFragment();
+           // abc(3);
         });
-
     }
 
-    public void abc(int temp){
+    public void abc(int temp) {
         view.colorChanger(temp);
     }
 
@@ -82,6 +96,14 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
         model.fetchContactList(this, FETCH_CONTACT_LIST_REQUEST_CODE);
 
         Log.e(TAG, model.toString());
+    }
+
+    private void fetchContactAcceptedList() {
+        model.fetchContactAcceptedList(this, FETCH_ACCEPTED_CONTACT_LIST_REQUEST_CODE);
+    }
+
+    private void fetchContactDeniedList() {
+        model.fetchContactDeniedList(this, FETCH_ACCEPTED_CONTACT_LIST_REQUEST_CODE);
     }
 
     @Override
@@ -104,14 +126,14 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
                             @Override
                             public void onDenyRequest(Tasks response) {
                                 tasks = response;
-                                model.denyRequest(DashboardContactPresenter.this,DENY_REQUEST_CODE,response.getTaskId());
+                                model.denyRequest(DashboardContactPresenter.this, DENY_REQUEST_CODE, response.getTaskId());
                             }
                         }, new DashboardViewHolder.OnAcceptOptionListener() {
                             @Override
                             public void onAcceptRequest(Tasks response) {
                                 tasks = response;
-                                if (response.getTaskType().equalsIgnoreCase("meeting")){
-                                    model.acceptMeeting(DashboardContactPresenter.this,ACCEPT_MEETING_REQUEST_CODE,response.getTaskId());
+                                if (response.getTaskType().equalsIgnoreCase("meeting")) {
+                                    model.acceptMeeting(DashboardContactPresenter.this, ACCEPT_MEETING_REQUEST_CODE, response.getTaskId());
                                 }
                             }
                         });
@@ -130,8 +152,8 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
                             @Override
                             public void onDeleteContact(Contacts response, int pos) {
                                 position = pos;
-                                model.deleteContact(DashboardContactPresenter.this, DELETE_CONTACT_REQUEST_CODE,response.getContactId());
-                                Log.e(TAG,model.toString());
+                                model.deleteContact(DashboardContactPresenter.this, DELETE_CONTACT_REQUEST_CODE, response.getContactId());
+                                Log.e(TAG, model.toString());
                             }
 
                             @Override
@@ -146,6 +168,60 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
                     view.isListEmpty(true, "Server error!!");
                 }
                 break;
+
+                // sam added
+            case FETCH_ACCEPTED_CONTACT_LIST_REQUEST_CODE:
+                if (response.isSuccessful()) {
+                    ContactResponse contactResponse = (ContactResponse) response.body();
+                    if (contactResponse != null && contactResponse.getContacts().size() > 0) {
+                        view.updateContactList(contactResponse, new ContactViewHolder.OnContactMoreOptionListener() {
+                            @Override
+                            public void onDeleteContact(Contacts response, int pos) {
+                                position = pos;
+                                model.deleteContact(DashboardContactPresenter.this, DELETE_CONTACT_REQUEST_CODE, response.getContactId());
+                                Log.e(TAG, model.toString());
+                            }
+
+                            @Override
+                            public void onViewDetails(Contacts response) {
+                                model.viewContactDetail(response.getContactId());
+                            }
+                        });
+                    } else {
+                        view.isListEmpty(true, "No contacts.");
+                    }
+                } else {
+                    view.isListEmpty(true, "Server error!!");
+                }
+                break;
+
+            case FETCH_DENIED_CONTACT_LIST_REQUEST_CODE:
+                if (response.isSuccessful()) {
+                    ContactResponse contactResponse = (ContactResponse) response.body();
+                    if (contactResponse != null && contactResponse.getContacts().size() > 0) {
+                        view.updateContactList(contactResponse, new ContactViewHolder.OnContactMoreOptionListener() {
+                            @Override
+                            public void onDeleteContact(Contacts response, int pos) {
+                                position = pos;
+                                model.deleteContact(DashboardContactPresenter.this, DELETE_CONTACT_REQUEST_CODE, response.getContactId());
+                                Log.e(TAG, model.toString());
+                            }
+
+                            @Override
+                            public void onViewDetails(Contacts response) {
+                                model.viewContactDetail(response.getContactId());
+                            }
+                        });
+                    } else {
+                        view.isListEmpty(true, "No contacts.");
+                    }
+                } else {
+                    view.isListEmpty(true, "Server error!!");
+                }
+                break;
+
+
+
             case DELETE_CONTACT_REQUEST_CODE:
                 if (response.isSuccessful()) {
                     ToastUtils.shortToast("Contact deleted.");
@@ -156,7 +232,7 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
                 break;
             case DENY_REQUEST_CODE:
                 if (response.isSuccessful()) {
-                    if (tasks != null){
+                    if (tasks != null) {
                         fetchTaskList();
                         model.showResult(tasks);
                         tasks = null;
@@ -167,7 +243,7 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
                 break;
             case ACCEPT_MEETING_REQUEST_CODE:
                 if (response.isSuccessful()) {
-                    if (tasks != null){
+                    if (tasks != null) {
                         fetchTaskList();
                         model.showMeetingResult(tasks);
                         tasks = null;

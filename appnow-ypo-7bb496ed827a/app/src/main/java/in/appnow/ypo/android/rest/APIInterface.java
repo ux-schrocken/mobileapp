@@ -44,6 +44,12 @@ public interface APIInterface {
     @GET("getContactList/{userId}")
     Call<ContactResponse> getContactList(@Path("userId") String userId);
 
+    @GET("getContactAcceptedList/{userId}")
+    Call<ContactResponse> getContactAcceptedList(@Path("userId") String userId);
+
+    @GET("getContactDeniedList/{userId}")
+    Call<ContactResponse> getContactDeniedList(@Path("userId") String userId);
+
     @POST("deleteContact/{contactId}")
     Call<ResponseBody> deleteContact(@Path("contactId") String contactId);
 

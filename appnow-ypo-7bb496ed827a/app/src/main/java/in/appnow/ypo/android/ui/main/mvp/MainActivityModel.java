@@ -29,9 +29,20 @@ public class MainActivityModel extends BaseModel {
         FragmentUtils.replaceFragment(appCompatActivity.getSupportFragmentManager(), R.id.main_container, DashboardContactFragment.newInstance(FragmentUtils.DASHBOARD), FragmentUtils.DASHBOARD_FRAGMENT, false);
     }
 
+
+
+
     public void replaceContactFragment() {
         FragmentUtils.replaceFragment(appCompatActivity.getSupportFragmentManager(), R.id.main_container, DashboardContactFragment.newInstance(FragmentUtils.CONTACT), FragmentUtils.CONTACT_FRAGMENT, false);
     }
+
+    public void replaceAcceptedContactFragment() {
+        FragmentUtils.replaceFragment(appCompatActivity.getSupportFragmentManager(), R.id.main_container, DashboardContactFragment.newInstance(FragmentUtils.CONTACT), FragmentUtils.CONTACT_ACCEPTED_FRAGMENT, false);
+    }
+    public void replaceDeniedContactFragment() {
+        FragmentUtils.replaceFragment(appCompatActivity.getSupportFragmentManager(), R.id.main_container, DashboardContactFragment.newInstance(FragmentUtils.CONTACT), FragmentUtils.CONTACT_DENIED_FRAGMENT, false);
+    }
+
 
     public void replaceMeetingFragment() {
         FragmentUtils.replaceFragment(appCompatActivity.getSupportFragmentManager(), R.id.main_container, MeetingFragment.newInstance(), FragmentUtils.MEETING_FRAGMENT, false);

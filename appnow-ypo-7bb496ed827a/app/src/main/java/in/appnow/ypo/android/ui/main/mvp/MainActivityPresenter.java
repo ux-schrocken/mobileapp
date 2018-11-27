@@ -27,8 +27,6 @@ public class MainActivityPresenter implements BasePresenter {
             onContactSelect();
         });
 
-
-
         view.onMeetingClick(view -> {
             boolean isClicked = MainActivityPresenter.this.view.onBottomButtonClick(2);
             if (isClicked) {
