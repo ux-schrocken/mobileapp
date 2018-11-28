@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 
 public class FragmentUtils {
 
-    public static final int CONTACT = 1;
+    public static  int CONTACT = 1;
     public static final int DASHBOARD = 0;
     public static final int DATE = 0;
     public static final int TIME = 1;

@@ -3,6 +3,7 @@ package in.appnow.ypo.android.ui.dashboard_contact.mvp.view;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -50,6 +51,8 @@ public class DashboardContactView extends FrameLayout {
     TextView acceptedButton;
     @BindView(R.id.dashboard_denied_button)
     TextView deniedButton;
+    @BindView(R.id.orangetabs)
+            LinearLayout orangeTabs;
     MainActivityView mainActivityView;
 public int changer =0;
     public DashboardContactView(@NonNull Context context) {
@@ -93,16 +96,21 @@ public int changer =0;
 
 
     public void colorChanger(int changer) {
+
         switch (changer) {
             case 1:
+
                 allButton.setTextColor(Color.parseColor("#FFFFFF"));
                 allButton.setBackgroundColor(Color.parseColor("#E16E38"));
+
 
                 acceptedButton.setTextColor(Color.parseColor("#E16E38"));
                 acceptedButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
                 deniedButton.setTextColor(Color.parseColor("#E16E38"));
                 deniedButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                allButton.setBackground(ContextCompat.getDrawable(this.getContext(), R.drawable.segment_fill_bg) );
+
                 break;
 
             case 2:
@@ -114,6 +122,7 @@ public int changer =0;
 
                 deniedButton.setTextColor(Color.parseColor("#E16E38"));
                 deniedButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                acceptedButton.setBackground(ContextCompat.getDrawable(this.getContext(), R.drawable.segment_fill_bg) );
                 break;
 
             case 3:
@@ -125,6 +134,7 @@ public int changer =0;
 
                 deniedButton.setTextColor(Color.parseColor("#FFFFFF"));
                 deniedButton.setBackgroundColor(Color.parseColor("#E16E38"));
+                deniedButton.setBackground(ContextCompat.getDrawable(this.getContext(), R.drawable.segment_fill_bg) );
                 break;
 
             default:
@@ -154,6 +164,26 @@ public int changer =0;
     }
 
     public void updateContactList(ContactResponse contactResponseList, ContactViewHolder.OnContactMoreOptionListener onContactMoreOptionListener) {
+        ContactAdapter adapter = new ContactAdapter(0);
+        adapter.setOnContactMoreOptionListener(onContactMoreOptionListener);
+        recyclerView.setAdapter(adapter);
+        adapter.swapData(contactResponseList.getContacts());
+        adapter.notifyDataSetChanged();
+        isListEmpty(false, "");
+        setLabelText(String.format(totalContactsString, contactResponseList.getContactsCount()));
+
+    }
+    public void updateAcceptedContactList(ContactResponse contactResponseList, ContactViewHolder.OnContactMoreOptionListener onContactMoreOptionListener) {
+        ContactAdapter adapter = new ContactAdapter(0);
+        adapter.setOnContactMoreOptionListener(onContactMoreOptionListener);
+        recyclerView.setAdapter(adapter);
+        adapter.swapData(contactResponseList.getContacts());
+        adapter.notifyDataSetChanged();
+        isListEmpty(false, "");
+        setLabelText(String.format(totalContactsString, contactResponseList.getContactsCount()));
+
+    }
+    public void updateDeniedContactList(ContactResponse contactResponseList, ContactViewHolder.OnContactMoreOptionListener onContactMoreOptionListener) {
         ContactAdapter adapter = new ContactAdapter(0);
         adapter.setOnContactMoreOptionListener(onContactMoreOptionListener);
         recyclerView.setAdapter(adapter);

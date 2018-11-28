@@ -59,10 +59,10 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
     public void onCreate() {
         if (isContact == FragmentUtils.CONTACT) {
             fetchContactList();
-        } else {
+        }
+        else {
             fetchTaskList();
         }
-
         view.allClick(view -> {
             fetchContactList();
             model.replaceContactFragment();
@@ -81,6 +81,7 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
             model.replaceContactDeniedFragment();
             abc(3);
         });
+
     }
 
     public void abc(int temp) {
@@ -103,7 +104,7 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
     }
 
     private void fetchContactDeniedList() {
-        model.fetchContactDeniedList(this, FETCH_ACCEPTED_CONTACT_LIST_REQUEST_CODE);
+        model.fetchContactDeniedList(this, FETCH_DENIED_CONTACT_LIST_REQUEST_CODE);
     }
 
     @Override
@@ -174,7 +175,7 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
                 if (response.isSuccessful()) {
                     ContactResponse contactResponse = (ContactResponse) response.body();
                     if (contactResponse != null && contactResponse.getContacts().size() > 0) {
-                        view.updateContactList(contactResponse, new ContactViewHolder.OnContactMoreOptionListener() {
+                        view.updateAcceptedContactList(contactResponse, new ContactViewHolder.OnContactMoreOptionListener() {
                             @Override
                             public void onDeleteContact(Contacts response, int pos) {
                                 position = pos;
@@ -199,7 +200,7 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
                 if (response.isSuccessful()) {
                     ContactResponse contactResponse = (ContactResponse) response.body();
                     if (contactResponse != null && contactResponse.getContacts().size() > 0) {
-                        view.updateContactList(contactResponse, new ContactViewHolder.OnContactMoreOptionListener() {
+                        view.updateDeniedContactList(contactResponse, new ContactViewHolder.OnContactMoreOptionListener() {
                             @Override
                             public void onDeleteContact(Contacts response, int pos) {
                                 position = pos;

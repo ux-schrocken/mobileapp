@@ -11,6 +11,7 @@
     <!--<include layout="@layout/segment_layout" />-->
 
     <LinearLayout
+        android:id="@+id/orangetabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/segment_curve_bg"
