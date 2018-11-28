@@ -99,5 +99,4 @@ public class DashboardContactModel extends BaseModel {
     public void replaceDashboardFragment() {
         FragmentUtils.replaceFragment(appCompatActivity.getSupportFragmentManager(), R.id.main_container, DashboardContactFragment.newInstance(FragmentUtils.DASHBOARD), FragmentUtils.DASHBOARD_FRAGMENT, false);
     }
-
 }

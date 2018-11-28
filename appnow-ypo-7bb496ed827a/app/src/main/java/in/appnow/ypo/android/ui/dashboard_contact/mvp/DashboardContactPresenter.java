@@ -67,19 +67,19 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
             fetchContactList();
             model.replaceContactFragment();
 
-            //abc(1);
+            abc(1);
         });
 
         view.acceptedClick(view -> {
             fetchContactAcceptedList();
             model.replaceAcceptedContactFragment();
-           // abc(2);
+           abc(2);
         });
 
         view.deniedClick(view -> {
             fetchContactDeniedList();
             model.replaceContactDeniedFragment();
-           // abc(3);
+            abc(3);
         });
     }
 

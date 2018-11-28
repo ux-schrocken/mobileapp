@@ -72,6 +72,8 @@ public interface APIInterface {
     @GET("getDefaultSharingRule/{userId}")
     Call<DefaultShareRuleResponse> getDefaultSharingRule(@Path("userId") String userId);
 
+
+
     @GET("getMembershipDate/{memberId}")
     Call<MemberRequestResponse> getMemberData(@Path("memberId") String memberId);
 
@@ -89,6 +91,15 @@ public interface APIInterface {
     Call<ResponseBody> setShareDetails(@Path("taskId") String taskId, @Field("memberLoc") String memberLoc, @Field("memberContactNum1") String memberContactNum1
             , @Field("memberEmail1") String memberEmail1, @Field("memberSocialAcc1") String memberSocialAcc1
             , @Field("setMeetings1") String setMeetings1, @Field("aboutMember1") String aboutMember1);
+
+
+
+    @FormUrlEncoded
+    @POST("editDefaultSharingRule/{memberId}")
+    Call<ResponseBody> editDefaultSharingRule(@Path("memberId") String taskId, @Field("sharingdefaultmemdate") String memberLoc, @Field("sharingdefaultemail") String memberContactNum1
+            , @Field("sharingdefaultphone") String memberEmail1, @Field("sharingdefaultsocialacc") String memberSocialAcc1
+            , @Field("sharingdefaultlocation") String setMeetings1, @Field("sharingdefaultsetmeetings") String aboutMember1);
+
 
 
     @FormUrlEncoded

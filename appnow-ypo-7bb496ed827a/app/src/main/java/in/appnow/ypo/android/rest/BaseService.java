@@ -441,6 +441,29 @@ public final class BaseService {
         });
     }
 
+// sam added
+    public static void editDefaultSharingRule(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode,
+                                       String taskId, String location, String contact, String email, String social, String meetings, String about) {
+        if (!YPOApplication.getInstance().isInternetConnected(false)) {
+            retroAPICallback.onNoNetwork(requestCode);
+            return;
+        }
+        ProgressDialogFragment.showProgress(((AppCompatActivity) context).getSupportFragmentManager());
+
+        Call<ResponseBody> call = apiInterface.editDefaultSharingRule(taskId,location,contact,email,social,meetings,about);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                retroAPICallback.onResponse(call, response, requestCode, null);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                retroAPICallback.onFailure(call, t, requestCode, null);
+                ProgressDialogFragment.dismissProgress(((AppCompatActivity) context).getSupportFragmentManager());
+            }
+        });
+    }
 
     public static void getMemberData(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
