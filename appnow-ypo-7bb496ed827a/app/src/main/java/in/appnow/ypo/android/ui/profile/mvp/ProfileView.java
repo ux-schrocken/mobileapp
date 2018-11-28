@@ -25,7 +25,6 @@ public class ProfileView extends FrameLayout {
 
     @BindView(R.id.profile_root_layout)
     RelativeLayout rootLayout;
-
     @BindView(R.id.profile_user_icon_image_view)
     CircleImageView userProfileImage;
     @BindView(R.id.profile_user_name_label)
