@@ -18,7 +18,7 @@ import in.appnow.ypo.android.rest.response.Tasks;
  * Copyright (c) 2018 . All rights reserved.
  */
 public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<Tasks> tasksList = new ArrayList<>(0);
+    public List<Tasks> tasksList = new ArrayList<>(0);
     private DashboardViewHolder.OnDenyOptionListener onDenyOptionListener;
     private DashboardViewHolder.OnAcceptOptionListener onAcceptOptionListener;
 

@@ -28,6 +28,7 @@ import in.appnow.ypo.android.ui.dashboard_contact.mvp.view.dashboard.DashboardAd
 import in.appnow.ypo.android.ui.dashboard_contact.mvp.view.dashboard.DashboardViewHolder;
 import in.appnow.ypo.android.ui.main.MainActivity;
 import in.appnow.ypo.android.ui.main.mvp.MainActivityView;
+import in.appnow.ypo.android.utils.FragmentUtils;
 
 /**
  * Created by sonu on 18:13, 18/10/18
@@ -141,6 +142,13 @@ public int changer =0;
 
                 break;
 
+        }
+    }
+
+    public void  hideArrows(){
+        if (FragmentUtils.TAB_SELECTOR!=1){
+            findViewById(R.id.dashboard_row_left_arrow).setVisibility(View.GONE);
+            findViewById(R.id.toolbar_right_action_button).setVisibility(View.GONE);
         }
     }
 

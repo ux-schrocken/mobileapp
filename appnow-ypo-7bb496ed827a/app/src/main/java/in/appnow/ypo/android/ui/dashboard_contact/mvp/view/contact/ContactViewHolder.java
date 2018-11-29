@@ -22,6 +22,7 @@ import in.appnow.ypo.android.rest.response.ContactDetail;
 import in.appnow.ypo.android.rest.response.ContactResponse;
 import in.appnow.ypo.android.rest.response.Contacts;
 import in.appnow.ypo.android.ui.meeting_request.MeetingRequestActivity;
+import in.appnow.ypo.android.utils.FragmentUtils;
 import in.appnow.ypo.android.utils.ToastUtils;
 import in.appnow.ypo.android.utils.VectorUtils;
 
@@ -87,7 +88,14 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
     //Log.e(TAG,locationLabel+" "+locationLabel+" "+emailLabel+""+contactLabel+" "+socialLabel);
             moreButton.setOnClickListener(view -> showMoreMenu(response));
 
-            moreButton.setVisibility(View.VISIBLE);
+            if(FragmentUtils.TAB_SELECTOR!=1){
+                moreButton.setVisibility(View.GONE);
+
+            }
+            else{
+                moreButton.setVisibility(View.VISIBLE);
+            }
+
             locationLabel.setVisibility(View.GONE);
             emailLabel.setVisibility(View.GONE);
             contactLabel.setVisibility(View.GONE);

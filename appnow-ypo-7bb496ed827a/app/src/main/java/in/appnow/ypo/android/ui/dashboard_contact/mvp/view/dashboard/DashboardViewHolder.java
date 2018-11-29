@@ -1,6 +1,7 @@
 package in.appnow.ypo.android.ui.dashboard_contact.mvp.view.dashboard;
 
 import android.content.Context;
+import android.icu.util.Freezable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -20,6 +21,7 @@ import in.appnow.ypo.android.rest.response.Tasks;
 import in.appnow.ypo.android.ui.result.ResultActivity;
 import in.appnow.ypo.android.ui.result.ResultEnum;
 import in.appnow.ypo.android.ui.share_details.ShareDetailsActivity;
+import in.appnow.ypo.android.utils.FragmentUtils;
 import in.appnow.ypo.android.utils.ToastUtils;
 
 /**
@@ -75,12 +77,16 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder {
     private OnDenyOptionListener onDenyOptionListener;
     private OnAcceptOptionListener onAcceptOptionListener;
 
-    public DashboardViewHolder(Context context,OnDenyOptionListener onDenyOptionListener, OnAcceptOptionListener onAcceptOptionListener  ,@NonNull View itemView) {
+    public DashboardViewHolder(Context context, OnDenyOptionListener onDenyOptionListener, OnAcceptOptionListener onAcceptOptionListener, @NonNull View itemView) {
         super(itemView);
         this.context = context;
         this.onDenyOptionListener = onDenyOptionListener;
         this.onAcceptOptionListener = onAcceptOptionListener;
         ButterKnife.bind(this, itemView);
+        if (FragmentUtils.TAB_SELECTOR == 2 || FragmentUtils.TAB_SELECTOR == 3) {
+            swipeLayout.setSwipeEnabled(false);
+        }
+
     }
 
     public void bindData(Tasks response) {
@@ -92,20 +98,20 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder {
         designationLabel.setText(response.getMemberShortBio());
         typeLabel.setText(response.getTaskType());
         memberSinceLabel.setText(response.getMembershipDate());
-if(response.getTaskType()!=null) {
-    if (response.getTaskType().equalsIgnoreCase("contact")) {
-        giveAccessLabel.setText("Give Access");
-        denyRequestLabel.setText("Deny Access");
-        typeLabel.setTextColor(violetColor);
-    } else if (response.getTaskType().equalsIgnoreCase("meeting")) {
-        giveAccessLabel.setText("Accept\nMeeting");
-        denyRequestLabel.setText("Deny\nMeeting");
-        typeLabel.setTextColor(orangeColor);
-    } else {
-        typeLabel.setTextColor(gunmetalColor);
-    }
+        if (response.getTaskType() != null) {
+            if (response.getTaskType().equalsIgnoreCase("contact")) {
+                giveAccessLabel.setText("Give Access");
+                denyRequestLabel.setText("Deny Access");
+                typeLabel.setTextColor(violetColor);
+            } else if (response.getTaskType().equalsIgnoreCase("meeting")) {
+                giveAccessLabel.setText("Accept\nMeeting");
+                denyRequestLabel.setText("Deny\nMeeting");
+                typeLabel.setTextColor(orangeColor);
+            } else {
+                typeLabel.setTextColor(gunmetalColor);
+            }
 
-}
+        }
         denyRequestButton.setOnClickListener(view -> showDeniedScreen(response));
         denyRequestImageView.setOnClickListener(view -> showDeniedScreen(response));
         denyRequestLabel.setOnClickListener(view -> showDeniedScreen(response));
@@ -113,25 +119,31 @@ if(response.getTaskType()!=null) {
         giveAccessImageView.setOnClickListener(view -> openShareActivity(response));
         giveAccessLabel.setOnClickListener(view -> openShareActivity(response));
 
-        leftArrow.setOnClickListener(view -> swipeLayout.open(SwipeLayout.DragEdge.Left));
+        if (FragmentUtils.TAB_SELECTOR != 1) {
+            leftArrow.setOnClickListener(null);
+            rightArrow.setOnClickListener(null);
+        } else {
 
-        rightArrow.setOnClickListener(view -> swipeLayout.open(SwipeLayout.DragEdge.Right));
+
+            leftArrow.setOnClickListener(view -> swipeLayout.open(SwipeLayout.DragEdge.Left));
+
+            rightArrow.setOnClickListener(view -> swipeLayout.open(SwipeLayout.DragEdge.Right));
+        }
 
     }
 
     private void openShareActivity(Tasks tasks) {
         closeSwipeReveal();
 
-        if (tasks.getTaskType().equalsIgnoreCase("contact")){
-            ShareDetailsActivity.openShareDetailsActivity(context,tasks);
-        }else{
+        if (tasks.getTaskType().equalsIgnoreCase("contact")) {
+            ShareDetailsActivity.openShareDetailsActivity(context, tasks);
+        } else {
             if (onAcceptOptionListener != null) {
                 onAcceptOptionListener.onAcceptRequest(tasks);
             } else {
                 ToastUtils.shortToast("Oops!! Unknown error occurred.");
             }
         }
-
 
 
     }
@@ -160,7 +172,7 @@ if(response.getTaskType()!=null) {
         public void onAcceptRequest(Tasks response);
     }
 
-    private void closeSwipeReveal(){
+    private void closeSwipeReveal() {
         swipeLayout.close(true);
     }
 }

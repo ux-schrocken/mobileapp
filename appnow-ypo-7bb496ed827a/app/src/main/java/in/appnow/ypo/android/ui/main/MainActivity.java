@@ -63,7 +63,10 @@ public int dashboardPositionGlobalVar = -1;
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+
                 presenter.swipe();
+
+
 
                 pullToRefresh.setRefreshing(false);
             }
