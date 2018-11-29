@@ -60,6 +60,7 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
     public void onCreate() {
         if (isContact == FragmentUtils.CONTACT) {
             fetchContactList();
+            abc(1);
         }
         else {
             fetchTaskList();
@@ -70,23 +71,18 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
 
                 abc(1);
             }
-
         });
-
         view.acceptedClick(view -> {
             if(FragmentUtils.TASKCONTACTSWITCHER==2){
                 fetchContactAcceptedList();
                 abc(2);
             }
-
         });
-
         view.deniedClick(view -> {
             if(FragmentUtils.TASKCONTACTSWITCHER==2){
                 fetchContactDeniedList();
                 abc(3);
             }
-
         });
 
     }
