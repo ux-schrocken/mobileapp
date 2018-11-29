@@ -26,6 +26,7 @@ public class MainActivityModel extends BaseModel {
     }
 
     public void replaceDashboardFragment() {
+        FragmentUtils.TASKCONTACTSWITCHER=1;
         FragmentUtils.replaceFragment(appCompatActivity.getSupportFragmentManager(), R.id.main_container, DashboardContactFragment.newInstance(FragmentUtils.DASHBOARD), FragmentUtils.DASHBOARD_FRAGMENT, false);
     }
 
@@ -33,6 +34,7 @@ public class MainActivityModel extends BaseModel {
 
 
     public void replaceContactFragment() {
+        FragmentUtils.TASKCONTACTSWITCHER=2;
         FragmentUtils.replaceFragment(appCompatActivity.getSupportFragmentManager(), R.id.main_container, DashboardContactFragment.newInstance(FragmentUtils.CONTACT), FragmentUtils.CONTACT_FRAGMENT, false);
     }
 

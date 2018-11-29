@@ -50,6 +50,7 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
     private int position = -1;
     public int addColor = 0;
 
+
     public DashboardContactPresenter(DashboardContactView view, DashboardContactModel model) {
         this.view = view;
         this.model = model;
@@ -64,22 +65,28 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
             fetchTaskList();
         }
         view.allClick(view -> {
-            fetchContactList();
-            model.replaceContactFragment();
+            if(FragmentUtils.TASKCONTACTSWITCHER==2){
+                fetchContactList();
 
-            abc(1);
+                abc(1);
+            }
+
         });
 
         view.acceptedClick(view -> {
-            fetchContactAcceptedList();
-            model.replaceAcceptedContactFragment();
-           abc(2);
+            if(FragmentUtils.TASKCONTACTSWITCHER==2){
+                fetchContactAcceptedList();
+                abc(2);
+            }
+
         });
 
         view.deniedClick(view -> {
-            fetchContactDeniedList();
-            model.replaceContactDeniedFragment();
-            abc(3);
+            if(FragmentUtils.TASKCONTACTSWITCHER==2){
+                fetchContactDeniedList();
+                abc(3);
+            }
+
         });
 
     }

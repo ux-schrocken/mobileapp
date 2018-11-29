@@ -15,6 +15,7 @@ public class FragmentUtils {
     public static final int DATE = 0;
     public static final int TIME = 1;
     public static  int DASHBOARD_SELECTED = 1;
+    public static  int TASKCONTACTSWITCHER = 1;
 
     public static final String LOGIN_FRAGMENT = "LoginFragment";
     public static final String REGISTER_FRAGMENT = "RegisterFragment";
