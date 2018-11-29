@@ -64,21 +64,43 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
         }
         else {
             fetchTaskList();
+            abc(1);
+
         }
+
+
+
         view.allClick(view -> {
+            FragmentUtils.TAB_SELECTOR=1;
+            if(FragmentUtils.TASKCONTACTSWITCHER==1){
+
+                fetchTaskList();
+                abc(1);
+            }
             if(FragmentUtils.TASKCONTACTSWITCHER==2){
                 fetchContactList();
-
                 abc(1);
             }
         });
+
         view.acceptedClick(view -> {
+            FragmentUtils.TAB_SELECTOR=2;
+            if(FragmentUtils.TASKCONTACTSWITCHER==1){
+                fetchTaskAcceptedList();
+                abc(2);
+            }
             if(FragmentUtils.TASKCONTACTSWITCHER==2){
                 fetchContactAcceptedList();
                 abc(2);
             }
         });
+
         view.deniedClick(view -> {
+            FragmentUtils.TAB_SELECTOR=3;
+            if(FragmentUtils.TASKCONTACTSWITCHER==1){
+                fetchTaskDeniedList();
+                abc(3);
+            }
             if(FragmentUtils.TASKCONTACTSWITCHER==2){
                 fetchContactDeniedList();
                 abc(3);
@@ -95,6 +117,15 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
     private void fetchTaskList() {
         model.fetchTaskList(this, FETCH_TASK_LIST_REQUEST_CODE);
     }
+    private void fetchTaskAcceptedList() {
+        model.fetchTaskAcceptedList(this, FETCH_ACCEPTED_TASK_LIST_REQUEST_CODE);
+    }
+    private void fetchTaskDeniedList() {
+        model.fetchTaskDeniedList(this, FETCH_DENIED_TASK_LIST_REQUEST_CODE);
+    }
+
+
+
 
     private void fetchContactList() {
         model.fetchContactList(this, FETCH_CONTACT_LIST_REQUEST_CODE);
@@ -127,6 +158,58 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
                     TaskListResponse taskListResponseList = (TaskListResponse) response.body();
                     if (taskListResponseList.getTasksList() != null && taskListResponseList.getTasksList().size() > 0) {
                         view.updateTaskList(taskListResponseList, new DashboardViewHolder.OnDenyOptionListener() {
+                            @Override
+                            public void onDenyRequest(Tasks response) {
+                                tasks = response;
+                                model.denyRequest(DashboardContactPresenter.this, DENY_REQUEST_CODE, response.getTaskId());
+                            }
+                        }, new DashboardViewHolder.OnAcceptOptionListener() {
+                            @Override
+                            public void onAcceptRequest(Tasks response) {
+                                tasks = response;
+                                if (response.getTaskType().equalsIgnoreCase("meeting")) {
+                                    model.acceptMeeting(DashboardContactPresenter.this, ACCEPT_MEETING_REQUEST_CODE, response.getTaskId());
+                                }
+                            }
+                        });
+                    } else {
+                        view.isListEmpty(true, "No tasks.");
+                    }
+                } else {
+                    view.isListEmpty(true, "Server error!!");
+                }
+                break;
+            case FETCH_ACCEPTED_TASK_LIST_REQUEST_CODE:
+                if (response.isSuccessful()) {
+                    TaskListResponse taskListResponseList = (TaskListResponse) response.body();
+                    if (taskListResponseList.getTasksList() != null && taskListResponseList.getTasksList().size() > 0) {
+                        view.updateTaskAcceptedList(taskListResponseList, new DashboardViewHolder.OnDenyOptionListener() {
+                            @Override
+                            public void onDenyRequest(Tasks response) {
+                                tasks = response;
+                                model.denyRequest(DashboardContactPresenter.this, DENY_REQUEST_CODE, response.getTaskId());
+                            }
+                        }, new DashboardViewHolder.OnAcceptOptionListener() {
+                            @Override
+                            public void onAcceptRequest(Tasks response) {
+                                tasks = response;
+                                if (response.getTaskType().equalsIgnoreCase("meeting")) {
+                                    model.acceptMeeting(DashboardContactPresenter.this, ACCEPT_MEETING_REQUEST_CODE, response.getTaskId());
+                                }
+                            }
+                        });
+                    } else {
+                        view.isListEmpty(true, "No tasks.");
+                    }
+                } else {
+                    view.isListEmpty(true, "Server error!!");
+                }
+                break;
+            case FETCH_DENIED_TASK_LIST_REQUEST_CODE:
+                if (response.isSuccessful()) {
+                    TaskListResponse taskListResponseList = (TaskListResponse) response.body();
+                    if (taskListResponseList.getTasksList() != null && taskListResponseList.getTasksList().size() > 0) {
+                        view.updateTaskDeniedList(taskListResponseList, new DashboardViewHolder.OnDenyOptionListener() {
                             @Override
                             public void onDenyRequest(Tasks response) {
                                 tasks = response;

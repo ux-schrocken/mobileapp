@@ -37,6 +37,14 @@ public class DashboardContactModel extends BaseModel {
         BaseService.getTaskList(appCompatActivity,apiInterface,retroAPICallback,requestCode);
     }
 
+    public void fetchTaskAcceptedList(RetroAPICallback retroAPICallback, int requestCode) {
+        BaseService.getTaskAcceptedList(appCompatActivity,apiInterface,retroAPICallback,requestCode);
+    }
+    public void fetchTaskDeniedList(RetroAPICallback retroAPICallback, int requestCode) {
+        BaseService.getTaskDeniedList(appCompatActivity,apiInterface,retroAPICallback,requestCode);
+    }
+
+
     public void fetchContactList(RetroAPICallback retroAPICallback, int requestCode) {
         Log.e("test", String.valueOf(requestCode));
         BaseService.getContactList(appCompatActivity,apiInterface,retroAPICallback,requestCode);

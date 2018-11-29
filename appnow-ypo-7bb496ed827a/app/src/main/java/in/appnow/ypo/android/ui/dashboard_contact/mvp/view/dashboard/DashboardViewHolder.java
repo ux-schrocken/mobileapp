@@ -53,6 +53,8 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder {
     ImageView rightArrow;
     @BindView(R.id.dashboard_user_icon_image_view)
     CircleImageView userImageView;
+
+    // type label is not getting data from get request.
     @BindView(R.id.dashboard_type_label)
     TextView typeLabel;
     @BindView(R.id.dashboard_user_name_label)
@@ -90,19 +92,20 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder {
         designationLabel.setText(response.getMemberShortBio());
         typeLabel.setText(response.getTaskType());
         memberSinceLabel.setText(response.getMembershipDate());
+if(response.getTaskType()!=null) {
+    if (response.getTaskType().equalsIgnoreCase("contact")) {
+        giveAccessLabel.setText("Give Access");
+        denyRequestLabel.setText("Deny Access");
+        typeLabel.setTextColor(violetColor);
+    } else if (response.getTaskType().equalsIgnoreCase("meeting")) {
+        giveAccessLabel.setText("Accept\nMeeting");
+        denyRequestLabel.setText("Deny\nMeeting");
+        typeLabel.setTextColor(orangeColor);
+    } else {
+        typeLabel.setTextColor(gunmetalColor);
+    }
 
-        if (response.getTaskType().equalsIgnoreCase("contact")) {
-            giveAccessLabel.setText("Give Access");
-            denyRequestLabel.setText("Deny Access");
-            typeLabel.setTextColor(violetColor);
-        } else if (response.getTaskType().equalsIgnoreCase("meeting")) {
-            giveAccessLabel.setText("Accept\nMeeting");
-            denyRequestLabel.setText("Deny\nMeeting");
-            typeLabel.setTextColor(orangeColor);
-        } else {
-            typeLabel.setTextColor(gunmetalColor);
-        }
-
+}
         denyRequestButton.setOnClickListener(view -> showDeniedScreen(response));
         denyRequestImageView.setOnClickListener(view -> showDeniedScreen(response));
         denyRequestLabel.setOnClickListener(view -> showDeniedScreen(response));

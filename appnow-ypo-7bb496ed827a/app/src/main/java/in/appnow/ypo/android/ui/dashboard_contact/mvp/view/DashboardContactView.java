@@ -153,6 +153,24 @@ public int changer =0;
         isListEmpty(false, "");
         setLabelText(String.format(activeRequestString, taskListResponseList.getActiveRequest()));
     }
+    public void updateTaskAcceptedList(TaskListResponse taskListResponseList, DashboardViewHolder.OnDenyOptionListener onDenyOptionListener, DashboardViewHolder.OnAcceptOptionListener onAcceptOptionListener) {
+        DashboardAdapter adapter = new DashboardAdapter();
+        adapter.setonDenyOptionListener(onDenyOptionListener, onAcceptOptionListener);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        adapter.swapData(taskListResponseList.getTasksList());
+        isListEmpty(false, "");
+        setLabelText(String.format(activeRequestString, taskListResponseList.getActiveRequest()));
+    }
+    public void updateTaskDeniedList(TaskListResponse taskListResponseList, DashboardViewHolder.OnDenyOptionListener onDenyOptionListener, DashboardViewHolder.OnAcceptOptionListener onAcceptOptionListener) {
+        DashboardAdapter adapter = new DashboardAdapter();
+        adapter.setonDenyOptionListener(onDenyOptionListener, onAcceptOptionListener);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        adapter.swapData(taskListResponseList.getTasksList());
+        isListEmpty(false, "");
+        setLabelText(String.format(activeRequestString, taskListResponseList.getActiveRequest()));
+    }
 
     private void setLabelText(String text) {
         if (TextUtils.isEmpty(text)) {
