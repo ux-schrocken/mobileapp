@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/meeting_row_Layout"
     android:layout_width="match_parent"
-    android:layout_marginBottom="@dimen/_10sdp"
+    android:layout_marginBottom="@dimen/_8sdp"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
@@ -33,7 +33,7 @@
         android:id="@+id/meeting_child_row_root_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue"
+        android:background="@drawable/meetings_row_bg"
         android:orientation="vertical"
         android:padding="@dimen/_10sdp">
 

@@ -90,6 +90,8 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
                 if (previousObject.getDateOfMeeting().equalsIgnoreCase(response.getDateOfMeeting())) {
                     dayLabel.setVisibility(View.GONE);
                 } else {
+
+                    // meeting row card gaps
                     rowLayout.setPadding(0,40,0,0);
                     dayLabel.setVisibility(View.VISIBLE);
                     dayLabel.setText(DateUtils.parseDate(DateUtils.convertStringDateToMilliSecond(response.getDateOfMeeting(), DateUtils.MEETING_DATE_FORMAT), DateUtils.OPEN_MEETING_DISPLAY_DATE_FORMAT));
