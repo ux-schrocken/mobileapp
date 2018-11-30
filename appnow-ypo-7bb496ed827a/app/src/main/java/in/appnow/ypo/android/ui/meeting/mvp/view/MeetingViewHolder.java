@@ -51,6 +51,8 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
     TextView descriptionLabel;
     @BindView(R.id.meeting_row_with_person_name_label)
     TextView withPersonName;
+    @BindView(R.id.meeting_row_Layout)
+    LinearLayout rowLayout;
 
     // sam " added meetingidView to add meeting id to be used while deleting
 //    @BindView(R.id.meetingIDView)
@@ -65,6 +67,7 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         this.context = context;
         this.onRemoveMeetingListener = onRemoveMeetingListener;
         ButterKnife.bind(this, itemView);
+
     }
 
     // gets the data from MeetingResponse
@@ -85,12 +88,14 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         } else {
             if (previousObject != null) {
                 if (previousObject.getDateOfMeeting().equalsIgnoreCase(response.getDateOfMeeting())) {
-                    dayLabel.setVisibility(View.INVISIBLE);
+                    dayLabel.setVisibility(View.GONE);
                 } else {
+                    rowLayout.setPadding(0,40,0,0);
                     dayLabel.setVisibility(View.VISIBLE);
                     dayLabel.setText(DateUtils.parseDate(DateUtils.convertStringDateToMilliSecond(response.getDateOfMeeting(), DateUtils.MEETING_DATE_FORMAT), DateUtils.OPEN_MEETING_DISPLAY_DATE_FORMAT));
                 }
             }
+
         }
 
         if (isEditMode) {
