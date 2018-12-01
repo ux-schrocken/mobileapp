@@ -53,16 +53,17 @@ private static final int FETCH_MEETING_DENIED_REQUEST_CODE=5;
 
     }
 
-    private void fetchMeetingAccepted(int requestCode){
-        model.fetchGetMeetingAcceptedList(this, requestCode );
-    }
-
 
     private void fetchMeetings(int requestCode) {
         model.fetchMeetings(this, requestCode);
 
         //model.fetchMemberData(this,requestCode);
     }
+
+    private void fetchMeetingAccepted(int requestCode){
+        model.fetchGetMeetingAcceptedList(this, requestCode );
+    }
+
 
     private void removetheMeeting(int requestCode) {
         //  model.removeMeeting(this, requestCode, String meetingId);

@@ -75,6 +75,7 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
     public void bindData(boolean isFirstItem, OpenMeetingResponse previousObject, OpenMeetingResponse response, boolean isEditMode) {
 
         if (response.getmemberName()==null) {
+
             String memberId;
             titleLabel.setText(response.getReasonForMeeting());
             memberId = response.getMemberId();
@@ -90,7 +91,8 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         } else {
             if (previousObject != null) {
                 if (previousObject.getDateOfMeeting().equalsIgnoreCase(response.getDateOfMeeting())) {
-                    dayLabel.setVisibility(View.GONE);
+                    //dayLabel.setVisibility(View.GONE);
+                    dayLabel.setText("");
                 } else {
 
                     // meeting row card gaps
