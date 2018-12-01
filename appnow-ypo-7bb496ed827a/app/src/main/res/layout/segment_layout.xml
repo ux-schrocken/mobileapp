@@ -14,6 +14,7 @@
         android:gravity="center"
         android:padding="@dimen/_5sdp"
         android:text="All"
+        android:clickable="true"
         android:textColor="@android:color/white"
         android:textSize="@dimen/_12sdp" />
 
@@ -25,6 +26,7 @@
         android:gravity="center"
         android:padding="@dimen/_5sdp"
         android:text="Accepted"
+        android:clickable="true"
         android:textColor="@color/orange_color"
         android:textSize="@dimen/_12sdp" />
 
@@ -35,8 +37,8 @@
         android:layout_weight="1"
         android:gravity="center"
         android:padding="@dimen/_5sdp"
+        android:clickable="true"
         android:text="Denied"
         android:textColor="@color/orange_color"
         android:textSize="@dimen/_12sdp" />
 </LinearLayout>
-

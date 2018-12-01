@@ -36,6 +36,8 @@ public final class BaseService {
     }
     private static final String TAG = "MyActivity";
 
+
+    /**----------------------------       TaskList      -----------------------------**/
     public static void getTaskList(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
             retroAPICallback.onNoNetwork(requestCode);
@@ -57,6 +59,53 @@ public final class BaseService {
             }
         });
     }
+
+    public static void getTaskAcceptedList(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
+        if (!YPOApplication.getInstance().isInternetConnected(false)) {
+            retroAPICallback.onNoNetwork(requestCode);
+            return;
+        }
+        ProgressDialogFragment.showProgress(((AppCompatActivity) context).getSupportFragmentManager());
+
+        Call<TaskListResponse> call = apiInterface.getTaskAcceptedList(USER_ID);
+        call.enqueue(new Callback<TaskListResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<TaskListResponse> call, @NonNull Response<TaskListResponse> response) {
+                retroAPICallback.onResponse(call, response, requestCode, null);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<TaskListResponse> call, @NonNull Throwable t) {
+                retroAPICallback.onFailure(call, t, requestCode, null);
+                ProgressDialogFragment.dismissProgress(((AppCompatActivity) context).getSupportFragmentManager());
+            }
+        });
+    }
+
+
+    public static void getTaskDeniedList(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
+        if (!YPOApplication.getInstance().isInternetConnected(false)) {
+            retroAPICallback.onNoNetwork(requestCode);
+            return;
+        }
+        ProgressDialogFragment.showProgress(((AppCompatActivity) context).getSupportFragmentManager());
+
+        Call<TaskListResponse> call = apiInterface.getTaskDeniedList(USER_ID);
+        call.enqueue(new Callback<TaskListResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<TaskListResponse> call, @NonNull Response<TaskListResponse> response) {
+                retroAPICallback.onResponse(call, response, requestCode, null);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<TaskListResponse> call, @NonNull Throwable t) {
+                retroAPICallback.onFailure(call, t, requestCode, null);
+                ProgressDialogFragment.dismissProgress(((AppCompatActivity) context).getSupportFragmentManager());
+            }
+        });
+    }
+
+
 
     public static void memberRequest(final Context context, String memberId, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
@@ -155,20 +204,27 @@ public final class BaseService {
         });
     }
 
+
+
+    /**----------------------------       ContactList      -----------------------------**/
+
     public static void getContactList(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
             retroAPICallback.onNoNetwork(requestCode);
             return;
         }
         ProgressDialogFragment.showProgress(((AppCompatActivity) context).getSupportFragmentManager());
-
         Call<ContactResponse> call = apiInterface.getContactList(USER_ID);
         call.enqueue(new Callback<ContactResponse>() {
             @Override
             public void onResponse(@NonNull Call<ContactResponse> call, @NonNull Response<ContactResponse> response) {
+//                Log.e("test", "response"+response.toString());
+//                ContactResponse contactResponse = response.body();
+//                Log.e("test", "0"+contactResponse.getContacts().get(0).getMemberId());
+//                Log.e("test", "0"+contactResponse.getContacts().get(0).getMemberSocialAcc());
                 retroAPICallback.onResponse(call, response, requestCode, null);
+//                Log.e(TAG, response.toString());
             }
-
             @Override
             public void onFailure(@NonNull Call<ContactResponse> call, @NonNull Throwable t) {
                 retroAPICallback.onFailure(call, t, requestCode, null);
@@ -177,10 +233,66 @@ public final class BaseService {
         });
     }
 
-    public static void deleteContact(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode, String contactId) {
+
+    public static void getContactAcceptedList(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
             retroAPICallback.onNoNetwork(requestCode);
-            //Log.e(TAG, retroAPICallback.toString());
+            return;
+        }
+        ProgressDialogFragment.showProgress(((AppCompatActivity) context).getSupportFragmentManager());
+        Call<ContactResponse> call = apiInterface.getContactAcceptedList(USER_ID);
+        call.enqueue(new Callback<ContactResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<ContactResponse> call, @NonNull Response<ContactResponse> response) {
+//                Log.e("test", "response"+response.toString());
+//                ContactResponse contactResponse = response.body();
+//                Log.e("test", "0"+contactResponse.getContacts().get(0).getMemberId());
+//                Log.e("test", "0"+contactResponse.getContacts().get(0).getMemberSocialAcc());
+                retroAPICallback.onResponse(call, response, requestCode, null);
+//                Log.e(TAG, response.toString());
+            }
+            @Override
+            public void onFailure(@NonNull Call<ContactResponse> call, @NonNull Throwable t) {
+                retroAPICallback.onFailure(call, t, requestCode, null);
+                ProgressDialogFragment.dismissProgress(((AppCompatActivity) context).getSupportFragmentManager());
+            }
+        });
+    }
+
+
+    public static void getContactDeniedList(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
+        if (!YPOApplication.getInstance().isInternetConnected(false)) {
+            retroAPICallback.onNoNetwork(requestCode);
+            return;
+        }
+        ProgressDialogFragment.showProgress(((AppCompatActivity) context).getSupportFragmentManager());
+        Call<ContactResponse> call = apiInterface.getContactDeniedList(USER_ID);
+        call.enqueue(new Callback<ContactResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<ContactResponse> call, @NonNull Response<ContactResponse> response) {
+//                Log.e("test", "response"+response.toString());
+//                ContactResponse contactResponse = response.body();
+//                Log.e("test", "0"+contactResponse.getContacts().get(0).getMemberId());
+//                Log.e("test", "0"+contactResponse.getContacts().get(0).getMemberSocialAcc());
+                retroAPICallback.onResponse(call, response, requestCode, null);
+//                Log.e(TAG, response.toString());
+            }
+            @Override
+            public void onFailure(@NonNull Call<ContactResponse> call, @NonNull Throwable t) {
+                retroAPICallback.onFailure(call, t, requestCode, null);
+                ProgressDialogFragment.dismissProgress(((AppCompatActivity) context).getSupportFragmentManager());
+            }
+        });
+    }
+
+
+    /**----------------------------       DELETE CONTACT      -----------------------------**/
+
+    public static void deleteContact(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode, String contactId) {
+        if (!YPOApplication.getInstance().isInternetConnected(false)) {
+
+            retroAPICallback.onNoNetwork(requestCode);
+            Log.e(TAG, retroAPICallback.toString());
             return;
         }
 
@@ -200,6 +312,7 @@ public final class BaseService {
             }
         });
     }
+    /**----------------------------       GET CONTACT DETAILS      -----------------------------**/
 
     public static void getContactDetails(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode,String contactId) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
@@ -223,6 +336,8 @@ public final class BaseService {
         });
     }
 
+    /**----------------------------       ADD NEW NUMBER      -----------------------------**/
+
     public static void addNewMember(final Context context, String memberId,APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
             retroAPICallback.onNoNetwork(requestCode);
@@ -245,6 +360,7 @@ public final class BaseService {
         });
     }
 
+    /**----------------------------       SET SHARE DETAILS      -----------------------------**/
 
     public static void setShareDetails(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode,
                                        String taskId, String location, String contact, String email, String social, String meetings, String about) {
@@ -292,6 +408,9 @@ public final class BaseService {
         });
     }
 
+    /**----------------------------       GET OPEN MEETINGS      -----------------------------**/
+
+
     public static void getOpenMeetings(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
             retroAPICallback.onNoNetwork(requestCode);
@@ -314,11 +433,38 @@ public final class BaseService {
         });
     }
 
+    /**----------------------------       GET MEETING ACCEPTED LIST     -----------------------------**/
+
+
+    public static void getMeetingAcceptedList(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
+        if (!YPOApplication.getInstance().isInternetConnected(false)) {
+            retroAPICallback.onNoNetwork(requestCode);
+            return;
+        }
+        ProgressDialogFragment.showProgress(((AppCompatActivity) context).getSupportFragmentManager());
+
+        Call<List<OpenMeetingResponse>> call = apiInterface.getMeetingAcceptedList(USER_ID);
+        call.enqueue(new Callback<List<OpenMeetingResponse>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<OpenMeetingResponse>> call, @NonNull Response<List<OpenMeetingResponse>> response) {
+                retroAPICallback.onResponse(call, response, requestCode, null);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<OpenMeetingResponse>> call, @NonNull Throwable t) {
+                retroAPICallback.onFailure(call, t, requestCode, null);
+                ProgressDialogFragment.dismissProgress(((AppCompatActivity) context).getSupportFragmentManager());
+            }
+        });
+    }
+
+    /**----------------------------       ADD MEETINGS      -----------------------------**/
 
     // Add New Meeting
     public static void addMeeting(final Context context, String userId ,String memberId ,String dateOfMeeting, String timeOfMeeting, String reasonForMeeting, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
             retroAPICallback.onNoNetwork(requestCode);
+            Log.e(TAG , memberId);
             return;
         }
         ProgressDialogFragment.showProgress(((AppCompatActivity) context).getSupportFragmentManager());
@@ -337,6 +483,8 @@ public final class BaseService {
             }
         });
     }
+
+    /**----------------------------       REMOVE MEETINGS       -----------------------------**/
 
     public static void removeMeetings(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode,String meetingId) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
@@ -359,6 +507,7 @@ public final class BaseService {
             }
         });
     }
+    /**----------------------------       GET DEFAULT SHARING RULE      -----------------------------**/
 
     public static void getDefaultSharingRule(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode,String contactId) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
@@ -382,6 +531,31 @@ public final class BaseService {
         });
     }
 
+    /**----------------------------       EDIT DEFAULT SHARING RULE      -----------------------------**/
+
+// sam added
+    public static void editDefaultSharingRule(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode,
+                                       String taskId, String location, String contact, String email, String social, String meetings, String about) {
+        if (!YPOApplication.getInstance().isInternetConnected(false)) {
+            retroAPICallback.onNoNetwork(requestCode);
+            return;
+        }
+        ProgressDialogFragment.showProgress(((AppCompatActivity) context).getSupportFragmentManager());
+
+        Call<ResponseBody> call = apiInterface.editDefaultSharingRule(taskId,location,contact,email,social,meetings,about);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                retroAPICallback.onResponse(call, response, requestCode, null);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                retroAPICallback.onFailure(call, t, requestCode, null);
+                ProgressDialogFragment.dismissProgress(((AppCompatActivity) context).getSupportFragmentManager());
+            }
+        });
+    }
 
     public static void getMemberData(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {

@@ -19,7 +19,10 @@ public class DateUtils {
     public static final String MEETING_RESULT_DATE_FORMAT ="dd MMM, yyyy";
     public static final String MEETING_RESULT_TIME_FORMAT="HH:mm z";
     public static final String OPEN_MEETING_DATE_FORMAT = "dd/mm/yyyy";
-    public static final String OPEN_MEETING_DISPLAY_DATE_FORMAT = "dd\nEEE";
+
+    // sam : edited day format (EEE)
+    //    public static final String OPEN_MEETING_DISPLAY_DATE_FORMAT = "dd\nEEE";
+    public static final String OPEN_MEETING_DISPLAY_DATE_FORMAT = "dd\nE";
 
     private static final String TAG = DateUtils.class.getSimpleName();
     private static final String TODAY = "Today";

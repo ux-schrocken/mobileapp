@@ -35,6 +35,7 @@ public class ShareDetailsModel extends BaseModel {
     }
 
     public void setShareDetails(RetroAPICallback apiCallback, int requestCode , String taskId, String location, String contact, String email, String social, String meetings, String about){
+
         BaseService.setShareDetails(appCompatActivity, apiInterface, apiCallback, requestCode,taskId,location,contact,email,social,meetings,about);
 
     }

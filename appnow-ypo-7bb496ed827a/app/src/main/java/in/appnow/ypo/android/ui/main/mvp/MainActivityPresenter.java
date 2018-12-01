@@ -2,6 +2,7 @@ package in.appnow.ypo.android.ui.main.mvp;
 
 import android.view.View;
 import android.util.Log;
+
 import in.appnow.ypo.android.mvp_base.BasePresenter;
 
 /**
@@ -11,7 +12,8 @@ import in.appnow.ypo.android.mvp_base.BasePresenter;
 public class MainActivityPresenter implements BasePresenter {
     private final MainActivityView view;
     private final MainActivityModel model;
-public static final String TAG = "myactivity";
+    public static final String TAG = "myactivity";
+
     public MainActivityPresenter(MainActivityView view, MainActivityModel model) {
         this.view = view;
         this.model = model;
@@ -20,17 +22,11 @@ public static final String TAG = "myactivity";
     @Override
     public void onCreate() {
         onDashboardSelect();
-        view.onDashboardClick(view -> {
-            onDashboardSelect();
-        });
+        view.onDashboardClick(view -> onDashboardSelect());
         view.onContactClick(view -> {
-            boolean isClicked = MainActivityPresenter.this.view.onBottomButtonClick(1);
-            if (isClicked) {
-                model.replaceContactFragment();
-               // Log.e(TAG,model.toString() );
-
-            }
+            onContactSelect();
         });
+
         view.onMeetingClick(view -> {
             boolean isClicked = MainActivityPresenter.this.view.onBottomButtonClick(2);
             if (isClicked) {
@@ -49,10 +45,41 @@ public static final String TAG = "myactivity";
 
     }
 
-    private void onDashboardSelect() {
+    // sam added
+    public void swipe() {
+
+        switch (view.currentPosition) {
+
+            case 0:
+                model.replaceDashboardFragment();
+                break;
+            case 1:
+                model.replaceContactFragment();
+                break;
+            case 2:
+                model.replaceMeetingFragment();
+                break;
+            case 3:
+                model.replaceProfileFragment();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void onDashboardSelect() {
         boolean isClicked = MainActivityPresenter.this.view.onBottomButtonClick(0);
         if (isClicked) {
             model.replaceDashboardFragment();
+        }
+    }
+
+    public void onContactSelect() {
+        boolean isClicked = MainActivityPresenter.this.view.onBottomButtonClick(1);
+        if (isClicked) {
+
+            model.replaceContactFragment();
+
         }
     }
 

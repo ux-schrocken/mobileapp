@@ -25,6 +25,14 @@ public class MeetingView extends FrameLayout {
     RecyclerView recyclerView;
     @BindView(R.id.empty_list_label)
     TextView emptyLabel;
+@BindView(R.id.meeting_all_button)
+TextView meetingAllButton;
+@BindView(R.id.meeting_accepted_button)
+TextView meetingAcceptedButton;
+@BindView(R.id.meeting_denied_button)
+TextView meetingDeniedButton;
+
+
     private final MeetingAdapter adapter = new MeetingAdapter();
 
     public MeetingView(@NonNull Context context) {
@@ -32,6 +40,18 @@ public class MeetingView extends FrameLayout {
         inflate(context, R.layout.meeting_fragment, this);
         ButterKnife.bind(this, this);
         setUpRecyclerView();
+    }
+
+    public void meetingAllClick(OnClickListener onClickListener){
+        meetingAllButton.setOnClickListener(onClickListener);
+    }
+
+    public void meetingAcceptedClick(OnClickListener onClickListener){
+        meetingAcceptedButton.setOnClickListener(onClickListener);
+    }
+
+    public void meetingDeniedClick(OnClickListener onClickListener){
+        meetingDeniedButton.setOnClickListener(onClickListener);
     }
 
     private void setUpRecyclerView() {

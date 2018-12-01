@@ -1,6 +1,7 @@
 package in.appnow.ypo.android.ui.dashboard_contact.mvp;
 
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import in.appnow.ypo.android.R;
 import in.appnow.ypo.android.interfaces.RetroAPICallback;
@@ -23,19 +24,40 @@ import in.appnow.ypo.android.utils.FragmentUtils;
 public class DashboardContactModel extends BaseModel {
     private final AppCompatActivity appCompatActivity;
     private final APIInterface apiInterface;
-
     public DashboardContactModel(AppCompatActivity appCompatActivity, APIInterface apiInterface) {
         super(appCompatActivity);
         this.appCompatActivity = appCompatActivity;
         this.apiInterface = apiInterface;
     }
 
+
+
+    // API CALLS
     public void fetchTaskList(RetroAPICallback retroAPICallback, int requestCode) {
         BaseService.getTaskList(appCompatActivity,apiInterface,retroAPICallback,requestCode);
     }
+
+    public void fetchTaskAcceptedList(RetroAPICallback retroAPICallback, int requestCode) {
+        BaseService.getTaskAcceptedList(appCompatActivity,apiInterface,retroAPICallback,requestCode);
+    }
+    public void fetchTaskDeniedList(RetroAPICallback retroAPICallback, int requestCode) {
+        BaseService.getTaskDeniedList(appCompatActivity,apiInterface,retroAPICallback,requestCode);
+    }
+
+
     public void fetchContactList(RetroAPICallback retroAPICallback, int requestCode) {
+        Log.e("test", String.valueOf(requestCode));
         BaseService.getContactList(appCompatActivity,apiInterface,retroAPICallback,requestCode);
     }
+    public void fetchContactAcceptedList(RetroAPICallback retroAPICallback, int requestCode) {
+        Log.e("test", String.valueOf(requestCode));
+        BaseService.getContactAcceptedList(appCompatActivity,apiInterface,retroAPICallback,requestCode);
+    }
+    public void fetchContactDeniedList(RetroAPICallback retroAPICallback, int requestCode) {
+        Log.e("test", String.valueOf(requestCode));
+        BaseService.getContactDeniedList(appCompatActivity,apiInterface,retroAPICallback,requestCode);
+    }
+
 
     public void deleteContact(RetroAPICallback retroAPICallback,int requestCode,String contactId) {
         BaseService.deleteContact(appCompatActivity,apiInterface,retroAPICallback,requestCode,contactId);
@@ -49,6 +71,9 @@ public class DashboardContactModel extends BaseModel {
         BaseService.acceptMeetingRequest(appCompatActivity,apiInterface,retroAPICallback,requestCode,taskId);
     }
 
+
+
+
     public void showResult(Tasks response){
         if (response.getTaskType().equalsIgnoreCase("contact")) {
             ResultActivity.openResultActivity(appCompatActivity, ResultEnum.DENY_CONTACT_REQUEST, response.getMemberName(), DashboardViewHolder.CONTACT_DENY_REQUEST_CODE);
@@ -56,7 +81,6 @@ public class DashboardContactModel extends BaseModel {
             ResultActivity.openResultActivity(appCompatActivity, ResultEnum.DENY_MEETING_REQUEST, response.getMemberName(), DashboardViewHolder.MEETING_DENY_REQUEST_CODE);
         }
     }
-
     public void showMeetingResult(Tasks response){
         if (response.getTaskType().equalsIgnoreCase("meeting")) {
             ResultActivity.openResultActivity(appCompatActivity, ResultEnum.ACCEPT_MEETING_REQUEST, response.getMemberName(), DashboardViewHolder.MEETING_DENY_REQUEST_CODE);
@@ -66,9 +90,21 @@ public class DashboardContactModel extends BaseModel {
     public void replaceContactFragment() {
         FragmentUtils.replaceFragment(appCompatActivity.getSupportFragmentManager(), R.id.main_container, DashboardContactFragment.newInstance(FragmentUtils.CONTACT), FragmentUtils.CONTACT_FRAGMENT, false);
     }
+    public void replaceAcceptedContactFragment() {
+        FragmentUtils.replaceFragment(appCompatActivity.getSupportFragmentManager(), R.id.main_container, DashboardContactFragment.newInstance(FragmentUtils.CONTACT), FragmentUtils.CONTACT_ACCEPTED_FRAGMENT, false);
+    }
+    public void replaceContactDeniedFragment() {
+        FragmentUtils.replaceFragment(appCompatActivity.getSupportFragmentManager(), R.id.main_container, DashboardContactFragment.newInstance(FragmentUtils.CONTACT), FragmentUtils.CONTACT_DENIED_FRAGMENT, false);
+    }
+
+
+
 
     public void viewContactDetail(String contactId){
         ContactDetailActivity.openContactDetailsActivity(appCompatActivity, contactId);
 
+    }
+    public void replaceDashboardFragment() {
+        FragmentUtils.replaceFragment(appCompatActivity.getSupportFragmentManager(), R.id.main_container, DashboardContactFragment.newInstance(FragmentUtils.DASHBOARD), FragmentUtils.DASHBOARD_FRAGMENT, false);
     }
 }

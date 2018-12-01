@@ -10,7 +10,18 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.appnow.ypo.android.BuildConfig;
 import in.appnow.ypo.android.R;
+import in.appnow.ypo.android.rest.APIInterface;
+import in.appnow.ypo.android.rest.response.MemberRequestResponse;
+import in.appnow.ypo.android.ui.main.MainActivity;
+import in.appnow.ypo.android.utils.FragmentUtils;
+import in.appnow.ypo.android.utils.StringUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by sonu on 18:13, 18/10/18
@@ -33,15 +44,19 @@ public class MainActivityView extends FrameLayout {
     ImageView profileButton;
     @BindView(R.id.create_new_button)
     ImageView createNewButton;
-    private int currentPosition = -1;
+
+    public int currentPosition = -1;
 
     public MainActivityView(@NonNull AppCompatActivity context) {
         super(context);
         inflate(context, R.layout.activity_main, this);
         ButterKnife.bind(this, this);
 
+        // sam added
+       // getMemberNamefromID(StringUtils.USER_ID);
+
         context.setSupportActionBar(toolbar);
-        if (context.getSupportActionBar()!=null){
+        if (context.getSupportActionBar() != null) {
             context.getSupportActionBar().setTitle("");
         }
     }
@@ -66,10 +81,49 @@ public class MainActivityView extends FrameLayout {
         createNewButton.setOnClickListener(onClickListener);
     }
 
+
+    // sam : added
+//    public void getMemberNamefromID(String memberId) {
+//
+//        Retrofit retrofit = new Retrofit.Builder()
+//                //.client(httpClient)
+//
+//                .baseUrl(BuildConfig.END_POINT)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        APIInterface api = retrofit.create(APIInterface.class);
+//
+//        api.memberRequest(memberId).enqueue(new Callback<MemberRequestResponse>() {
+//            @Override
+//            public void onResponse(Call<MemberRequestResponse> call,
+//                                   Response<MemberRequestResponse> response) {
+//                //  Log.d(TAG, "onResponse: ");
+//                MemberRequestResponse memberRequestResponse = response.body();
+//                // System.out.println("Light :"+memberRequestResponse.getMemberName());
+//                TextView username = (TextView) findViewById(R.id.username_title);
+//                username.setText(memberRequestResponse.getMemberName());
+//                // R.id.username_title.setText("with " + memberRequestResponse.getMemberName());
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<MemberRequestResponse> call, Throwable t) {
+//                // Log.d(TAG, "onFailure: ");
+//            }
+//        });
+//
+//    }
+
+
     public boolean onBottomButtonClick(int position) {
+
         if (currentPosition == position)
+
             return false;
+
         currentPosition = position;
+        FragmentUtils.DASHBOARD_SELECTED=currentPosition;
         switch (position) {
             case 0:
                 toolbarTitle.setText("Dashboard");

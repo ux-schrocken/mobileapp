@@ -1,5 +1,6 @@
 package in.appnow.ypo.android.ui.dashboard_contact.mvp;
 
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 
 import java.util.List;
@@ -10,6 +11,9 @@ import in.appnow.ypo.android.rest.response.ContactResponse;
 import in.appnow.ypo.android.rest.response.Contacts;
 import in.appnow.ypo.android.rest.response.TaskListResponse;
 import in.appnow.ypo.android.rest.response.Tasks;
+
+import android.util.Log;
+
 import in.appnow.ypo.android.ui.contact_details.ContactDetailActivity;
 import in.appnow.ypo.android.ui.dashboard_contact.mvp.view.DashboardContactView;
 import in.appnow.ypo.android.ui.dashboard_contact.mvp.view.contact.ContactViewHolder;
@@ -28,8 +32,14 @@ import retrofit2.Response;
  */
 public class DashboardContactPresenter implements BasePresenter, RetroAPICallback {
     private static final int FETCH_TASK_LIST_REQUEST_CODE = 1;
+    private static final int FETCH_ACCEPTED_TASK_LIST_REQUEST_CODE = 6;
+    private static final int FETCH_DENIED_TASK_LIST_REQUEST_CODE = 7;
+
     private static final String TAG = DashboardContactPresenter.class.getSimpleName();
     private static final int FETCH_CONTACT_LIST_REQUEST_CODE = 2;
+    private static final int FETCH_ACCEPTED_CONTACT_LIST_REQUEST_CODE = 8;
+    private static final int FETCH_DENIED_CONTACT_LIST_REQUEST_CODE = 9;
+
     private static final int DELETE_CONTACT_REQUEST_CODE = 3;
     private static final int DENY_REQUEST_CODE = 4;
     private static final int ACCEPT_MEETING_REQUEST_CODE = 5;
@@ -38,6 +48,8 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
     private int isContact;
     private Tasks tasks = null;
     private int position = -1;
+    public int addColor = 0;
+
 
     public DashboardContactPresenter(DashboardContactView view, DashboardContactModel model) {
         this.view = view;
@@ -48,17 +60,85 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
     public void onCreate() {
         if (isContact == FragmentUtils.CONTACT) {
             fetchContactList();
-        } else {
-            fetchTaskList();
+            abc(1);
         }
+        else {
+            fetchTaskList();
+            abc(1);
+
+        }
+
+
+
+        view.allClick(view -> {
+            FragmentUtils.TAB_SELECTOR=1;
+            if(FragmentUtils.TASKCONTACTSWITCHER==1){
+
+                fetchTaskList();
+                abc(1);
+            }
+            if(FragmentUtils.TASKCONTACTSWITCHER==2){
+                fetchContactList();
+                abc(1);
+            }
+        });
+
+        view.acceptedClick(view -> {
+            FragmentUtils.TAB_SELECTOR=2;
+            if(FragmentUtils.TASKCONTACTSWITCHER==1){
+                fetchTaskAcceptedList();
+                abc(2);
+            }
+            if(FragmentUtils.TASKCONTACTSWITCHER==2){
+                fetchContactAcceptedList();
+                abc(2);
+            }
+        });
+
+        view.deniedClick(view -> {
+            FragmentUtils.TAB_SELECTOR=3;
+            if(FragmentUtils.TASKCONTACTSWITCHER==1){
+                fetchTaskDeniedList();
+                abc(3);
+            }
+            if(FragmentUtils.TASKCONTACTSWITCHER==2){
+                fetchContactDeniedList();
+                abc(3);
+            }
+        });
+
     }
+
+    public void abc(int temp) {
+        view.colorChanger(temp);
+    }
+
 
     private void fetchTaskList() {
         model.fetchTaskList(this, FETCH_TASK_LIST_REQUEST_CODE);
     }
+    private void fetchTaskAcceptedList() {
+        model.fetchTaskAcceptedList(this, FETCH_ACCEPTED_TASK_LIST_REQUEST_CODE);
+    }
+    private void fetchTaskDeniedList() {
+        model.fetchTaskDeniedList(this, FETCH_DENIED_TASK_LIST_REQUEST_CODE);
+    }
+
+
+
 
     private void fetchContactList() {
         model.fetchContactList(this, FETCH_CONTACT_LIST_REQUEST_CODE);
+
+        Log.e(TAG, model.toString());
+    }
+
+    private void fetchContactAcceptedList() {
+        model.fetchContactAcceptedList(this, FETCH_ACCEPTED_CONTACT_LIST_REQUEST_CODE);
+    }
+
+    private void fetchContactDeniedList() {
+        model.fetchContactDeniedList(this, FETCH_DENIED_CONTACT_LIST_REQUEST_CODE);
     }
 
     @Override
@@ -81,14 +161,66 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
                             @Override
                             public void onDenyRequest(Tasks response) {
                                 tasks = response;
-                                model.denyRequest(DashboardContactPresenter.this,DENY_REQUEST_CODE,response.getTaskId());
+                                model.denyRequest(DashboardContactPresenter.this, DENY_REQUEST_CODE, response.getTaskId());
                             }
                         }, new DashboardViewHolder.OnAcceptOptionListener() {
                             @Override
                             public void onAcceptRequest(Tasks response) {
                                 tasks = response;
-                                if (response.getTaskType().equalsIgnoreCase("meeting")){
-                                    model.acceptMeeting(DashboardContactPresenter.this,ACCEPT_MEETING_REQUEST_CODE,response.getTaskId());
+                                if (response.getTaskType().equalsIgnoreCase("meeting")) {
+                                    model.acceptMeeting(DashboardContactPresenter.this, ACCEPT_MEETING_REQUEST_CODE, response.getTaskId());
+                                }
+                            }
+                        });
+                    } else {
+                        view.isListEmpty(true, "No tasks.");
+                    }
+                } else {
+                    view.isListEmpty(true, "Server error!!");
+                }
+                break;
+            case FETCH_ACCEPTED_TASK_LIST_REQUEST_CODE:
+                if (response.isSuccessful()) {
+                    TaskListResponse taskListResponseList = (TaskListResponse) response.body();
+                    if (taskListResponseList.getTasksList() != null && taskListResponseList.getTasksList().size() > 0) {
+                        view.updateTaskAcceptedList(taskListResponseList, new DashboardViewHolder.OnDenyOptionListener() {
+                            @Override
+                            public void onDenyRequest(Tasks response) {
+                                tasks = response;
+                                model.denyRequest(DashboardContactPresenter.this, DENY_REQUEST_CODE, response.getTaskId());
+                            }
+                        }, new DashboardViewHolder.OnAcceptOptionListener() {
+                            @Override
+                            public void onAcceptRequest(Tasks response) {
+                                tasks = response;
+                                if (response.getTaskType().equalsIgnoreCase("meeting")) {
+                                    model.acceptMeeting(DashboardContactPresenter.this, ACCEPT_MEETING_REQUEST_CODE, response.getTaskId());
+                                }
+                            }
+                        });
+                    } else {
+                        view.isListEmpty(true, "No tasks.");
+                    }
+                } else {
+                    view.isListEmpty(true, "Server error!!");
+                }
+                break;
+            case FETCH_DENIED_TASK_LIST_REQUEST_CODE:
+                if (response.isSuccessful()) {
+                    TaskListResponse taskListResponseList = (TaskListResponse) response.body();
+                    if (taskListResponseList.getTasksList() != null && taskListResponseList.getTasksList().size() > 0) {
+                        view.updateTaskDeniedList(taskListResponseList, new DashboardViewHolder.OnDenyOptionListener() {
+                            @Override
+                            public void onDenyRequest(Tasks response) {
+                                tasks = response;
+                                model.denyRequest(DashboardContactPresenter.this, DENY_REQUEST_CODE, response.getTaskId());
+                            }
+                        }, new DashboardViewHolder.OnAcceptOptionListener() {
+                            @Override
+                            public void onAcceptRequest(Tasks response) {
+                                tasks = response;
+                                if (response.getTaskType().equalsIgnoreCase("meeting")) {
+                                    model.acceptMeeting(DashboardContactPresenter.this, ACCEPT_MEETING_REQUEST_CODE, response.getTaskId());
                                 }
                             }
                         });
@@ -107,7 +239,8 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
                             @Override
                             public void onDeleteContact(Contacts response, int pos) {
                                 position = pos;
-                                model.deleteContact(DashboardContactPresenter.this, DELETE_CONTACT_REQUEST_CODE,response.getContactId());
+                                model.deleteContact(DashboardContactPresenter.this, DELETE_CONTACT_REQUEST_CODE, response.getContactId());
+                                Log.e(TAG, model.toString());
                             }
 
                             @Override
@@ -122,6 +255,60 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
                     view.isListEmpty(true, "Server error!!");
                 }
                 break;
+
+                // sam added
+            case FETCH_ACCEPTED_CONTACT_LIST_REQUEST_CODE:
+                if (response.isSuccessful()) {
+                    ContactResponse contactResponse = (ContactResponse) response.body();
+                    if (contactResponse != null && contactResponse.getContacts().size() > 0) {
+                        view.updateAcceptedContactList(contactResponse, new ContactViewHolder.OnContactMoreOptionListener() {
+                            @Override
+                            public void onDeleteContact(Contacts response, int pos) {
+                                position = pos;
+                                model.deleteContact(DashboardContactPresenter.this, DELETE_CONTACT_REQUEST_CODE, response.getContactId());
+                                Log.e(TAG, model.toString());
+                            }
+
+                            @Override
+                            public void onViewDetails(Contacts response) {
+                                model.viewContactDetail(response.getContactId());
+                            }
+                        });
+                    } else {
+                        view.isListEmpty(true, "No contacts.");
+                    }
+                } else {
+                    view.isListEmpty(true, "Server error!!");
+                }
+                break;
+
+            case FETCH_DENIED_CONTACT_LIST_REQUEST_CODE:
+                if (response.isSuccessful()) {
+                    ContactResponse contactResponse = (ContactResponse) response.body();
+                    if (contactResponse != null && contactResponse.getContacts().size() > 0) {
+                        view.updateDeniedContactList(contactResponse, new ContactViewHolder.OnContactMoreOptionListener() {
+                            @Override
+                            public void onDeleteContact(Contacts response, int pos) {
+                                position = pos;
+                                model.deleteContact(DashboardContactPresenter.this, DELETE_CONTACT_REQUEST_CODE, response.getContactId());
+                                Log.e(TAG, model.toString());
+                            }
+
+                            @Override
+                            public void onViewDetails(Contacts response) {
+                                model.viewContactDetail(response.getContactId());
+                            }
+                        });
+                    } else {
+                        view.isListEmpty(true, "No contacts.");
+                    }
+                } else {
+                    view.isListEmpty(true, "Server error!!");
+                }
+                break;
+
+
+
             case DELETE_CONTACT_REQUEST_CODE:
                 if (response.isSuccessful()) {
                     ToastUtils.shortToast("Contact deleted.");
@@ -132,7 +319,7 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
                 break;
             case DENY_REQUEST_CODE:
                 if (response.isSuccessful()) {
-                    if (tasks != null){
+                    if (tasks != null) {
                         fetchTaskList();
                         model.showResult(tasks);
                         tasks = null;
@@ -143,7 +330,7 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
                 break;
             case ACCEPT_MEETING_REQUEST_CODE:
                 if (response.isSuccessful()) {
-                    if (tasks != null){
+                    if (tasks != null) {
                         fetchTaskList();
                         model.showMeetingResult(tasks);
                         tasks = null;

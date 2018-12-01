@@ -31,15 +31,31 @@ public interface APIInterface {
     @GET("getTaskList/{userId}")
     Call<TaskListResponse> getTaskList(@Path("userId") String userId);
 
-    @GET("memberRequest/{reqId}")
-    Call<MemberRequestResponse> memberRequest(@Path("reqId") String requestId, @Query("action") String action);
 
+    @GET("getTaskAcceptedList/{userId}")
+    Call<TaskListResponse> getTaskAcceptedList(@Path("userId") String userId);
+
+    @GET("getTaskDeniedList/{userId}")
+    Call<TaskListResponse> getTaskDeniedList(@Path("userId") String userId);
+
+    // sam edited : @POST instead of @GET
+//    @GET("memberRequest/{reqId}")
+//    Call<MemberRequestResponse> memberRequest(@Path("reqId") String requestId, @Query("action") String action);
+
+    @POST("memberRequest/{reqId}")
+    Call<MemberRequestResponse> memberRequest(@Path("reqId") String requestId);
 
     @GET("setShareDetails/{reqId}")
     Call<List<TaskListResponse>> shareDetails(@Path("reqId") String requestId);
 
     @GET("getContactList/{userId}")
     Call<ContactResponse> getContactList(@Path("userId") String userId);
+
+    @GET("getContactAcceptedList/{userId}")
+    Call<ContactResponse> getContactAcceptedList(@Path("userId") String userId);
+
+    @GET("getContactDeniedList/{userId}")
+    Call<ContactResponse> getContactDeniedList(@Path("userId") String userId);
 
     @POST("deleteContact/{contactId}")
     Call<ResponseBody> deleteContact(@Path("contactId") String contactId);
@@ -54,14 +70,26 @@ public interface APIInterface {
     @POST("requestMeeting")
     Call<MeetingResponse> requestMeeting(@Query("memberId") String memberId, @Query("dateOfMeeting") String dateOfMeeting, @Query("timeOfMeeting") String timeOfMeeting, @Query("reasonForMeeting") String reasonForMeeting);
 
+
+
+
+    /**--------------------     MEEEINGS ALL ACCEPTED AND DENIED    ---------------------**/
+
     @GET("getOpenMeetings/{userId}")
     Call<List<OpenMeetingResponse>> getOpenMeetings(@Path("userId") String userId);
+
+
+    @GET("getMeetingAcceptedList/{userId}")
+    Call<List<OpenMeetingResponse>> getMeetingAcceptedList(@Path("userId") String userId);
+
 
     @POST("removeMeetings/{meetingId}")
     Call<ResponseBody> removeMeetings(@Path("meetingId") String meetingId);
 
     @GET("getDefaultSharingRule/{userId}")
     Call<DefaultShareRuleResponse> getDefaultSharingRule(@Path("userId") String userId);
+
+
 
     @GET("getMembershipDate/{memberId}")
     Call<MemberRequestResponse> getMemberData(@Path("memberId") String memberId);
@@ -80,6 +108,15 @@ public interface APIInterface {
     Call<ResponseBody> setShareDetails(@Path("taskId") String taskId, @Field("memberLoc") String memberLoc, @Field("memberContactNum1") String memberContactNum1
             , @Field("memberEmail1") String memberEmail1, @Field("memberSocialAcc1") String memberSocialAcc1
             , @Field("setMeetings1") String setMeetings1, @Field("aboutMember1") String aboutMember1);
+
+
+
+    @FormUrlEncoded
+    @POST("editDefaultSharingRule/{memberId}")
+    Call<ResponseBody> editDefaultSharingRule(@Path("memberId") String taskId, @Field("sharingdefaultmemdate") String memberLoc, @Field("sharingdefaultemail") String memberContactNum1
+            , @Field("sharingdefaultphone") String memberEmail1, @Field("sharingdefaultsocialacc") String memberSocialAcc1
+            , @Field("sharingdefaultlocation") String setMeetings1, @Field("sharingdefaultsetmeetings") String aboutMember1);
+
 
 
     @FormUrlEncoded

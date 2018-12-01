@@ -25,7 +25,6 @@ public class ProfileView extends FrameLayout {
 
     @BindView(R.id.profile_root_layout)
     RelativeLayout rootLayout;
-
     @BindView(R.id.profile_user_icon_image_view)
     CircleImageView userProfileImage;
     @BindView(R.id.profile_user_name_label)
@@ -51,6 +50,7 @@ public class ProfileView extends FrameLayout {
     @BindView(R.id.profile_setup_meetings_switch)
     SwitchCompat setupMeetingSwitch;
 
+
     public ProfileView(@NonNull Context context) {
         super(context);
         inflate(context, R.layout.profile_fragment, this);
@@ -63,6 +63,17 @@ public class ProfileView extends FrameLayout {
 
     }
 
+    public void onSwitchClick(OnClickListener onClickListener){
+        profileSwitch.setOnClickListener(onClickListener);
+        profileAboutSwitch.setOnClickListener(onClickListener);
+        locationSwitch.setOnClickListener(onClickListener);
+        contactSwitch.setOnClickListener(onClickListener);
+        emailSwitch.setOnClickListener(onClickListener);
+        socialSwitch.setOnClickListener(onClickListener);
+setupMeetingSwitch.setOnClickListener(onClickListener);
+    }
+
+
     public void updateViews(MemberRequestResponse requestResponse) {
         userNameLabel.setText(requestResponse.getMemberName());
         designationLabel.setText(requestResponse.getMemberShortBio());
@@ -72,6 +83,24 @@ public class ProfileView extends FrameLayout {
         emailSwitch.setText(requestResponse.getMemberEmail());
         contactSwitch.setText(requestResponse.getMemberContactNum());
         socialSwitch.setText(requestResponse.getMemberSocialAcc());
+
+
+        //public String sharingdefaultmemdate, sharingdefaultemail, sharingdefaultphone, sharingdefaultsocialacc, sharingdefaultlocation, sharingdefaultsetmeetings;
+//       S_username=requestResponse.getMembershipDate();
+//       S_designation=requestResponse.getMemberShortBio();
+//       S_memberSince=requestResponse.getMembershipDate();
+//       S_about=requestResponse.getAboutMember();
+//        sharingdefaultlocation=requestResponse.getMemberLoc();
+//        sharingdefaultemail=requestResponse.getMemberEmail();
+//        sharingdefaultphone=requestResponse.getMemberContactNum();
+//        sharingdefaultsocialacc=requestResponse.getMemberSocialAcc();
+
+
+//(@Path("memberId") String taskId, @Field("sharingdefaultmemdate") String memberLoc, @Field("sharingdefaultemail") String memberContactNum1
+//            , @Field("sharingdefaultphone") String memberEmail1, @Field("sharingdefaultsocialacc") String memberSocialAcc1
+//            , @Field("sharingdefaultlocation") String setMeetings1, @Field("sharingdefaultsetmeetings") String aboutMember1)
+
+
 
         if (requestResponse.getDefaultLocationFlag().equalsIgnoreCase("0")) {
             locationSwitch.setChecked(false);

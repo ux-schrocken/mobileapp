@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import javax.inject.Inject;
 
@@ -20,6 +21,8 @@ import in.appnow.ypo.android.ui.dashboard_contact.mvp.DashboardContactPresenter;
 import in.appnow.ypo.android.ui.dashboard_contact.mvp.view.DashboardContactView;
 import in.appnow.ypo.android.ui.main.MainActivity;
 import in.appnow.ypo.android.ui.meeting_request.MeetingRequestActivity;
+import in.appnow.ypo.android.ui.profile.ProfileFragment;
+import in.appnow.ypo.android.user_auth.LoginActivity;
 import in.appnow.ypo.android.utils.FragmentUtils;
 
 /**
@@ -30,7 +33,6 @@ public class DashboardContactFragment extends Fragment {
 
     private static final String ARG_CONTACT = "arg_contact";
     private Context context;
-
     @Inject
     DashboardContactView view;
     @Inject
@@ -49,7 +51,6 @@ public class DashboardContactFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +58,7 @@ public class DashboardContactFragment extends Fragment {
             isContact = getArguments().getInt(ARG_CONTACT, 0);
         }
     }
+
 
     @Nullable
     @Override
@@ -86,6 +88,7 @@ public class DashboardContactFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
             case R.id.action_new_contact:
                 AddNewContactActivity.openAddNewContactActivity(getContext());
                 break;
@@ -93,6 +96,7 @@ public class DashboardContactFragment extends Fragment {
                 MeetingRequestActivity.openMeetingRequestActivity(getContext(),null);
                 break;
             case R.id.action_logout:
+                LoginActivity.openAddNewLoginActivity(getContext());
                 break;
         }
         return super.onOptionsItemSelected(item);

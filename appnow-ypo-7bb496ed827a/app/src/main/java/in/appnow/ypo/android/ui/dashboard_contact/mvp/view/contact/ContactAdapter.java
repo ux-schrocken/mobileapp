@@ -19,7 +19,7 @@ import in.appnow.ypo.android.ui.dashboard_contact.mvp.view.dashboard.DashboardVi
  * Copyright (c) 2018 . All rights reserved.
  */
 public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<Contacts> contacts = new ArrayList<>(0);
+    public List<Contacts> contacts = new ArrayList<>(0);
     private ContactViewHolder.OnContactMoreOptionListener onContactMoreOptionListener;
 
     private int isRequestMeetingCall;

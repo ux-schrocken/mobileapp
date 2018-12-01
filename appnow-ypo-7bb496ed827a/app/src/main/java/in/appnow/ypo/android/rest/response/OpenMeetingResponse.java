@@ -2,10 +2,15 @@ package in.appnow.ypo.android.rest.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by sonu on 12:54, 23/10/18
  * Copyright (c) 2018 . All rights reserved.
  */
+
+// gets data from getOpenMeetings() in BaseService.java
+
 public class OpenMeetingResponse {
     @SerializedName("dateOfMeeting")
     private String dateOfMeeting;
@@ -15,8 +20,15 @@ public class OpenMeetingResponse {
     private String reasonForMeeting;
     @SerializedName("memberId")
     private String memberId;
-    @SerializedName("meetingId")
+    // sam : solved meetingID not deleting
+    @SerializedName("MeetingId")
     private String meetingId;
+    //added for adding data to accepted and denied list
+    @SerializedName("contactList")
+    private List<Tasks> contactList;
+    @SerializedName("memberName")
+    private String memberName;
+
 
     public String getDateOfMeeting() {
         return dateOfMeeting;
@@ -57,4 +69,13 @@ public class OpenMeetingResponse {
     public void setMeetingId(String meetingId) {
         this.meetingId = meetingId;
     }
+
+    public String getmemberName() {
+        return memberName;
+    }
+
+    public List<Tasks> getContactList(){
+        return contactList;
+    }
+
 }

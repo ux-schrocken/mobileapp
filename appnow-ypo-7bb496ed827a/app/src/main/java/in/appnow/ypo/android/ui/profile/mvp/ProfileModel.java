@@ -30,4 +30,12 @@ public class ProfileModel extends BaseModel {
     public void fetchDefaultSharingData(RetroAPICallback apiCallback, int requestCode,String contactId){
         BaseService.getDefaultSharingRule(appCompatActivity,apiInterface,apiCallback,requestCode,contactId);
     }
+
+    public void editDefaultSharingRule(RetroAPICallback apiCallback, int requestCode , String taskId, String location, String contact, String email, String social, String meetings, String about){
+
+        BaseService.editDefaultSharingRule(appCompatActivity, apiInterface, apiCallback, requestCode,taskId,location,contact,email,social,meetings,about);
+
+    }
+
+
 }

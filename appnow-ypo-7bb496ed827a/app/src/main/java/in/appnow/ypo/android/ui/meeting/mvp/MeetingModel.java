@@ -7,6 +7,8 @@ import in.appnow.ypo.android.mvp_base.BaseModel;
 import in.appnow.ypo.android.rest.APIInterface;
 import in.appnow.ypo.android.rest.BaseService;
 
+import static in.appnow.ypo.android.utils.StringUtils.USER_ID;
+
 /**
  * Created by sonu on 18:13, 18/10/18
  * Copyright (c) 2018 . All rights reserved.
@@ -25,7 +27,17 @@ public class MeetingModel extends BaseModel {
         BaseService.getOpenMeetings(appCompatActivity, apiInterface, apiCallback, requestCode);
     }
 
+    public void fetchGetMeetingAcceptedList(RetroAPICallback apiCallback, int requestCode) {
+        BaseService.getMeetingAcceptedList(appCompatActivity, apiInterface, apiCallback, requestCode);
+    }
+
+
     public void removeMeeting(RetroAPICallback retroAPICallback, int requestCode,String meetingId) {
         BaseService.removeMeetings(appCompatActivity,apiInterface,retroAPICallback, requestCode,meetingId);
     }
+
+//    public void fetchMemberData(RetroAPICallback apiCallback, int requestCode) {
+//
+//        BaseService.memberRequest(appCompatActivity, USER_ID, apiInterface, apiCallback, requestCode);
+//    }
 }

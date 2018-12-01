@@ -12,6 +12,18 @@
     app:contentInsetStart="0dp">
 
 
+    <!--<TextView-->
+        <!--android:id="@+id/username_title"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="left"-->
+        <!--android:clickable="true"-->
+        <!--android:gravity="fill_vertical"-->
+        <!--android:paddingLeft="@dimen/_10sdp"-->
+        <!--android:textColor="@android:color/black"-->
+        <!--android:textSize="@dimen/_15sdp"-->
+        <!--tools:text="Username" />-->
+
     <TextView
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"

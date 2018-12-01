@@ -1,6 +1,7 @@
 package in.appnow.ypo.android.ui.meeting.mvp;
 
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -20,9 +21,11 @@ import retrofit2.Response;
  */
 public class MeetingPresenter implements BasePresenter, RetroAPICallback {
     private static final int FETCH_OPEN_MEETINGS_REQUEST_CODE = 1;
-    private static final int REFRESH_OPEN_MEETINGS_REQUEST_CODE = 3;
-    private static final String TAG = MeetingPresenter.class.getSimpleName();
     private static final int REMOVE_MEETING_REQUEST_CODE = 2;
+    private static final int REFRESH_OPEN_MEETINGS_REQUEST_CODE = 3;
+    private static final int FETCH_MEETING_ACCEPTED_REQUEST_CODE = 4;
+private static final int FETCH_MEETING_DENIED_REQUEST_CODE=5;
+    private static final String TAG = MeetingPresenter.class.getSimpleName();
     private final MeetingView view;
     private final MeetingModel model;
 
@@ -34,11 +37,37 @@ public class MeetingPresenter implements BasePresenter, RetroAPICallback {
     @Override
     public void onCreate() {
         fetchMeetings(FETCH_OPEN_MEETINGS_REQUEST_CODE);
+
+
+        view.meetingAllClick(view -> {
+            fetchMeetings(FETCH_OPEN_MEETINGS_REQUEST_CODE);
+            ToastUtils.shortToast("all button is clicked");
+        });
+        view.meetingAcceptedClick(view -> {
+            fetchMeetingAccepted(FETCH_MEETING_ACCEPTED_REQUEST_CODE);
+            ToastUtils.shortToast("Accepted Button is clicked");
+        });
+        view.meetingDeniedClick(view -> {
+            ToastUtils.shortToast("Meeting denied clicked");
+        });
+
     }
+
+    private void fetchMeetingAccepted(int requestCode){
+        model.fetchGetMeetingAcceptedList(this, requestCode );
+    }
+
 
     private void fetchMeetings(int requestCode) {
         model.fetchMeetings(this, requestCode);
+
+        //model.fetchMemberData(this,requestCode);
     }
+
+    private void removetheMeeting(int requestCode) {
+        //  model.removeMeeting(this, requestCode, String meetingId);
+    }
+
 
     @Override
     public void onDestroy() {
@@ -49,11 +78,13 @@ public class MeetingPresenter implements BasePresenter, RetroAPICallback {
     public void onResponse(Call<?> call, Response<?> response, int requestCode, @Nullable Object request) {
         switch (requestCode) {
             case REFRESH_OPEN_MEETINGS_REQUEST_CODE:
+                break;
             case FETCH_OPEN_MEETINGS_REQUEST_CODE:
                 if (response.isSuccessful()) {
                     List<OpenMeetingResponse> openMeetingResponseList = (List<OpenMeetingResponse>) response.body();
                     if (openMeetingResponseList != null && openMeetingResponseList.size() > 0) {
-                        view.updateOpenMeetings(requestCode==REFRESH_OPEN_MEETINGS_REQUEST_CODE,openMeetingResponseList, response1 -> model.removeMeeting(MeetingPresenter.this, REMOVE_MEETING_REQUEST_CODE,response1.getMeetingId()));
+                        // here meetingID = null
+                        view.updateOpenMeetings(requestCode == REFRESH_OPEN_MEETINGS_REQUEST_CODE, openMeetingResponseList, response1 -> model.removeMeeting(MeetingPresenter.this, REMOVE_MEETING_REQUEST_CODE, response1.getMeetingId()));
                     } else {
                         view.isListEmpty(true, "No meetings.");
                     }
@@ -61,12 +92,29 @@ public class MeetingPresenter implements BasePresenter, RetroAPICallback {
                     view.isListEmpty(true, "Server error!!");
                 }
                 break;
+            case FETCH_MEETING_ACCEPTED_REQUEST_CODE:
+                ToastUtils.shortToast(" fetch accepted meeting list got till here");
+                if (response.isSuccessful()) {
+                    List<OpenMeetingResponse> openMeetingResponseList = (List<OpenMeetingResponse>) response.body();
+                    if (openMeetingResponseList != null && openMeetingResponseList.size() > 0) {
+                        // here meetingID = null
+                        view.updateOpenMeetings(requestCode == FETCH_MEETING_ACCEPTED_REQUEST_CODE, openMeetingResponseList, response1 -> model.removeMeeting(MeetingPresenter.this, REMOVE_MEETING_REQUEST_CODE, response1.getMeetingId()));
+                    } else {
+                        view.isListEmpty(true, "No meetings.");
+                    }
+                } else {
+                    view.isListEmpty(true, "Server error!!");
+                }
+
             case REMOVE_MEETING_REQUEST_CODE:
                 if (response.isSuccessful()) {
-                    fetchMeetings(REFRESH_OPEN_MEETINGS_REQUEST_CODE);
+
                     ToastUtils.shortToast("Meeting removed successfully.");
+
+                    // refresh meeting after deleting
+                    fetchMeetings(REFRESH_OPEN_MEETINGS_REQUEST_CODE);
                 } else {
-                    ToastUtils.shortToast("Oops!! Some error occurred.");
+                    ToastUtils.shortToast("Oops!! Some error occurred onResponse removing Meeting.");
                 }
                 break;
         }
@@ -82,7 +130,7 @@ public class MeetingPresenter implements BasePresenter, RetroAPICallback {
                 break;
             case REMOVE_MEETING_REQUEST_CODE:
                 Logger.ErrorLog(TAG, "Remove Meetings Error : " + t.getLocalizedMessage());
-                ToastUtils.shortToast("Oops!! Some error occurred.");
+                ToastUtils.shortToast("Oops!! Some error occurred onFailure removing Meeting.");
                 break;
         }
     }

@@ -14,6 +14,8 @@ import butterknife.ButterKnife;
 import in.appnow.ypo.android.R;
 import in.appnow.ypo.android.utils.TextUtils;
 
+import static in.appnow.ypo.android.utils.StringUtils.USER_ID;
+
 /**
  * Created by sonu on 16:22, 23/10/18
  * Copyright (c) 2018 . All rights reserved.
@@ -82,11 +84,14 @@ public class AddNewContactView extends FrameLayout {
 
     public boolean validateMemberIdentifier() {
         String identifier = TextUtils.getText(memberIdentifierInput);
-        if (!android.text.TextUtils.isEmpty(identifier)) {
+        if (android.text.TextUtils.isEmpty(identifier)) {
+            memberIdentifierInput.setError("Please enter identifier.");
+            return false;
+        } else if (android.text.TextUtils.equals(identifier, USER_ID)) {
+            memberIdentifierInput.setError("Please enter valid Member Identifier.");
+            return false;
+        } else
             return true;
-        }
-        memberIdentifierInput.setError("Please enter identifier.");
-        return false;
-
     }
 }
+
