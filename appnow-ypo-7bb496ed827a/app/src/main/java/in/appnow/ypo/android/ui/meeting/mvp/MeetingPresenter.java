@@ -1,6 +1,7 @@
 package in.appnow.ypo.android.ui.meeting.mvp;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.List;
@@ -96,10 +97,12 @@ private static final int FETCH_MEETING_DENIED_REQUEST_CODE=5;
             case FETCH_MEETING_ACCEPTED_REQUEST_CODE:
                 ToastUtils.shortToast(" fetch accepted meeting list got till here");
                 if (response.isSuccessful()) {
+                    //here happening cant be cast error 1/12
                     List<OpenMeetingResponse> openMeetingResponseList = (List<OpenMeetingResponse>) response.body();
+                    Log.e("samtest",openMeetingResponseList.toString());
                     if (openMeetingResponseList != null && openMeetingResponseList.size() > 0) {
                         // here meetingID = null
-                        view.updateOpenMeetings(requestCode == FETCH_MEETING_ACCEPTED_REQUEST_CODE, openMeetingResponseList, response1 -> model.removeMeeting(MeetingPresenter.this, REMOVE_MEETING_REQUEST_CODE, response1.getMeetingId()));
+                        view.updateMeetingsAccepted(requestCode == FETCH_MEETING_ACCEPTED_REQUEST_CODE, openMeetingResponseList, response1 -> model.removeMeeting(MeetingPresenter.this, REMOVE_MEETING_REQUEST_CODE, response1.getMeetingId()));
                     } else {
                         view.isListEmpty(true, "No meetings.");
                     }

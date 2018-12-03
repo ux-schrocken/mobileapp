@@ -25,7 +25,7 @@ public class OpenMeetingResponse {
     private String meetingId;
     //added for adding data to accepted and denied list
     @SerializedName("contactList")
-    private List<Tasks> contactList;
+    private List<MeetingAcceptedRejectedResponse> contactList;
     @SerializedName("memberName")
     private String memberName;
 
@@ -70,12 +70,13 @@ public class OpenMeetingResponse {
         this.meetingId = meetingId;
     }
 
-    public String getmemberName() {
+    public String getMemberName() {
         return memberName;
     }
 
-    public List<Tasks> getContactList(){
-        return contactList;
-    }
+
+//    public List<MeetingAcceptedRejectedResponse> getContactList(){
+//        return contactList;
+//    }
 
 }

@@ -81,4 +81,11 @@ TextView meetingDeniedButton;
         recyclerView.setAdapter(adapter);
         isListEmpty(false, "");
     }
+
+    public void updateMeetingsAccepted(boolean isEditMode,List<OpenMeetingResponse> openMeetingResponseList, MeetingViewHolder.OnRemoveMeetingListener onRemoveMeetingListener) {
+        adapter.setOnRemoveMeetingListener(onRemoveMeetingListener);
+        adapter.swapData(openMeetingResponseList,isEditMode);
+        recyclerView.setAdapter(adapter);
+        isListEmpty(false, "");
+    }
 }

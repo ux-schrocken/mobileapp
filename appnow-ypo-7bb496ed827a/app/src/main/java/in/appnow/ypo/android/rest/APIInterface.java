@@ -8,6 +8,7 @@ import in.appnow.ypo.android.rest.response.ContactResponse;
 import in.appnow.ypo.android.rest.response.Contacts;
 import in.appnow.ypo.android.rest.response.DefaultShareRuleResponse;
 import in.appnow.ypo.android.rest.response.DenyRequestResponse;
+import in.appnow.ypo.android.rest.response.MeetingAcceptedRejectedResponse;
 import in.appnow.ypo.android.rest.response.MeetingResponse;
 import in.appnow.ypo.android.rest.response.MemberRequestResponse;
 import in.appnow.ypo.android.rest.response.OpenMeetingResponse;
@@ -79,9 +80,11 @@ public interface APIInterface {
     Call<List<OpenMeetingResponse>> getOpenMeetings(@Path("userId") String userId);
 
 
-    @GET("getMeetingAcceptedList/{userId}")
-    Call<List<OpenMeetingResponse>> getMeetingAcceptedList(@Path("userId") String userId);
+//    @GET("getMeetingAcceptedList/{userId}")
+//    Call<List<MeetingAcceptedRejectedResponse>> getMeetingAcceptedList(@Path("userId") String userId);
 
+    @GET("getMeetingAcceptedList/{userId}")
+    Call<OpenMeetingResponse> getMeetingAcceptedList(@Path("userId") String userId);
 
     @POST("removeMeetings/{meetingId}")
     Call<ResponseBody> removeMeetings(@Path("meetingId") String meetingId);

@@ -16,6 +16,7 @@ import in.appnow.ypo.android.rest.response.ContactResponse;
 import in.appnow.ypo.android.rest.response.Contacts;
 import in.appnow.ypo.android.rest.response.DefaultShareRuleResponse;
 import in.appnow.ypo.android.rest.response.DenyRequestResponse;
+import in.appnow.ypo.android.rest.response.MeetingAcceptedRejectedResponse;
 import in.appnow.ypo.android.rest.response.MeetingResponse;
 import in.appnow.ypo.android.rest.response.MemberRequestResponse;
 import in.appnow.ypo.android.rest.response.OpenMeetingResponse;
@@ -436,6 +437,31 @@ public final class BaseService {
     /**----------------------------       GET MEETING ACCEPTED LIST     -----------------------------**/
 
 
+//    public static void k(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
+//        if (!YPOApplication.getInstance().isInternetConnected(false)) {
+//            retroAPICallback.onNoNetwork(requestCode);
+//            return;
+//        }
+//        ProgressDialogFragment.showProgress(((AppCompatActivity) context).getSupportFragmentManager());
+//
+//        Call<List<MeetingAcceptedRejectedResponse>> call = apiInterface.getMeetingAcceptedList(USER_ID);
+//        Log.e("samtest", call.toString());
+//        call.enqueue(new Callback<List<MeetingAcceptedRejectedResponse>>() {
+//            @Override
+//            public void onResponse(@NonNull Call<List<MeetingAcceptedRejectedResponse>> call, @NonNull Response<List<MeetingAcceptedRejectedResponse>> response) {
+//                retroAPICallback.onResponse(call, response, requestCode, null);
+//            }
+//
+//            @Override
+//            public void onFailure(@NonNull Call<List<MeetingAcceptedRejectedResponse>> call, @NonNull Throwable t) {
+//                retroAPICallback.onFailure(call, t, requestCode, null);
+//                ProgressDialogFragment.dismissProgress(((AppCompatActivity) context).getSupportFragmentManager());
+//            }
+//        });
+//    }
+
+
+
     public static void getMeetingAcceptedList(final Context context, APIInterface apiInterface, final RetroAPICallback retroAPICallback, final int requestCode) {
         if (!YPOApplication.getInstance().isInternetConnected(false)) {
             retroAPICallback.onNoNetwork(requestCode);
@@ -443,20 +469,21 @@ public final class BaseService {
         }
         ProgressDialogFragment.showProgress(((AppCompatActivity) context).getSupportFragmentManager());
 
-        Call<List<OpenMeetingResponse>> call = apiInterface.getMeetingAcceptedList(USER_ID);
-        call.enqueue(new Callback<List<OpenMeetingResponse>>() {
+        Call<OpenMeetingResponse> call = apiInterface.getMeetingAcceptedList(USER_ID);
+        call.enqueue(new Callback<OpenMeetingResponse>() {
             @Override
-            public void onResponse(@NonNull Call<List<OpenMeetingResponse>> call, @NonNull Response<List<OpenMeetingResponse>> response) {
+            public void onResponse(@NonNull Call<OpenMeetingResponse> call, @NonNull Response<OpenMeetingResponse> response) {
                 retroAPICallback.onResponse(call, response, requestCode, null);
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<OpenMeetingResponse>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<OpenMeetingResponse> call, @NonNull Throwable t) {
                 retroAPICallback.onFailure(call, t, requestCode, null);
                 ProgressDialogFragment.dismissProgress(((AppCompatActivity) context).getSupportFragmentManager());
             }
         });
     }
+
 
     /**----------------------------       ADD MEETINGS      -----------------------------**/
 
