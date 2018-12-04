@@ -80,11 +80,13 @@ public interface APIInterface {
     Call<List<OpenMeetingResponse>> getOpenMeetings(@Path("userId") String userId);
 
 
-//    @GET("getMeetingAcceptedList/{userId}")
-//    Call<List<MeetingAcceptedRejectedResponse>> getMeetingAcceptedList(@Path("userId") String userId);
-
     @GET("getMeetingAcceptedList/{userId}")
-    Call<OpenMeetingResponse> getMeetingAcceptedList(@Path("userId") String userId);
+    Call<List<OpenMeetingResponse>> getMeetingAcceptedList(@Path("userId") String userId);
+
+
+    @GET("getMeetingDeniedList/{userId}")
+    Call<List<OpenMeetingResponse>> getMeetingDeniedList(@Path("userId") String userId);
+
 
     @POST("removeMeetings/{meetingId}")
     Call<ResponseBody> removeMeetings(@Path("meetingId") String meetingId);

@@ -31,6 +31,10 @@ public class MeetingModel extends BaseModel {
         BaseService.getMeetingAcceptedList(appCompatActivity, apiInterface, apiCallback, requestCode);
     }
 
+    public void fetchGetMeetingDeniedList(RetroAPICallback apiCallback, int requestCode) {
+        BaseService.getMeetingDeniedList(appCompatActivity, apiInterface, apiCallback, requestCode);
+    }
+
 
     public void removeMeeting(RetroAPICallback retroAPICallback, int requestCode,String meetingId) {
         BaseService.removeMeetings(appCompatActivity,apiInterface,retroAPICallback, requestCode,meetingId);

@@ -104,7 +104,6 @@ public int changer =0;
                 allButton.setTextColor(Color.parseColor("#FFFFFF"));
                 allButton.setBackgroundColor(Color.parseColor("#E16E38"));
 
-
                 acceptedButton.setTextColor(Color.parseColor("#E16E38"));
                 acceptedButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
 

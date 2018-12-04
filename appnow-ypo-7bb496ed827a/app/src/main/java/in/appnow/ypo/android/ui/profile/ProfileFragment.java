@@ -60,7 +60,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.edit_menu, menu);
+        //to remove done button on top bar
+       // inflater.inflate(R.menu.edit_menu, menu);
     }
 
     @Override

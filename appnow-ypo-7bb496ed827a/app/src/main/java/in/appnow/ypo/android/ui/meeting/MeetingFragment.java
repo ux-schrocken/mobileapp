@@ -2,6 +2,7 @@ package in.appnow.ypo.android.ui.meeting;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -33,7 +34,7 @@ public class MeetingFragment extends Fragment {
     private boolean isEditMode;
 
     private MenuItem editMenu;
-
+private Handler handler= new Handler();
     public MeetingFragment() {
     }
 
@@ -45,6 +46,9 @@ public class MeetingFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
+
+
 
     @Nullable
     @Override

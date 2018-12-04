@@ -118,10 +118,10 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         } else {
             deleteButton.setVisibility(View.GONE);
         }
-
+//
     }
 
-    else if(response.getMemberName()!=null){
+    else {
 
             //String memberId;
             titleLabel.setText(response.getMemberName());

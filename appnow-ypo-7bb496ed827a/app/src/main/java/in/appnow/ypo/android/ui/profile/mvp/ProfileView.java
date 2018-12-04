@@ -1,5 +1,6 @@
 package in.appnow.ypo.android.ui.profile.mvp;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.SwitchCompat;

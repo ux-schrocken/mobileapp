@@ -1,6 +1,7 @@
 package in.appnow.ypo.android.ui.dashboard_contact.mvp;
 
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 
 import java.util.List;
@@ -65,10 +66,7 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
         else {
             fetchTaskList();
             abc(1);
-
         }
-
-
 
         view.allClick(view -> {
             FragmentUtils.TAB_SELECTOR=1;
@@ -106,7 +104,6 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
                 abc(3);
             }
         });
-
     }
 
     public void abc(int temp) {
@@ -312,7 +309,14 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
             case DELETE_CONTACT_REQUEST_CODE:
                 if (response.isSuccessful()) {
                     ToastUtils.shortToast("Contact deleted.");
-                    model.replaceContactFragment();
+
+                    (new Handler()).postDelayed(new Runnable() {
+                        public void run() {
+                            // Actions to do after 5 seconds
+                            model.replaceContactFragment();
+                        }
+                    }, 500);
+
                 } else {
                     ToastUtils.shortToast("Failed to delete contact. Please try again.");
                 }
@@ -320,7 +324,14 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
             case DENY_REQUEST_CODE:
                 if (response.isSuccessful()) {
                     if (tasks != null) {
-                        fetchTaskList();
+
+                        (new Handler()).postDelayed(new Runnable() {
+                            public void run() {
+                                // Actions to do after 5 seconds
+                                fetchTaskList();
+                            }
+                        }, 1000);
+
                         model.showResult(tasks);
                         tasks = null;
                     }
@@ -331,7 +342,15 @@ public class DashboardContactPresenter implements BasePresenter, RetroAPICallbac
             case ACCEPT_MEETING_REQUEST_CODE:
                 if (response.isSuccessful()) {
                     if (tasks != null) {
-                        fetchTaskList();
+
+                        (new Handler()).postDelayed(new Runnable() {
+                            public void run() {
+                                // Actions to do after 5 seconds
+                                fetchTaskList();
+                            }
+                        }, 1000);
+
+
                         model.showMeetingResult(tasks);
                         tasks = null;
                     }
