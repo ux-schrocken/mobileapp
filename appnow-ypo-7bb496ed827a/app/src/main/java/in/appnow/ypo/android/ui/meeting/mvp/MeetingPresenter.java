@@ -39,21 +39,27 @@ public class MeetingPresenter implements BasePresenter, RetroAPICallback {
     @Override
     public void onCreate() {
         fetchMeetings(FETCH_OPEN_MEETINGS_REQUEST_CODE);
-
+abc(1);
 
         view.meetingAllClick(view -> {
             fetchMeetings(FETCH_OPEN_MEETINGS_REQUEST_CODE);
-            ToastUtils.shortToast("all button is clicked");
+            abc(1);
+          //  ToastUtils.shortToast("all button is clicked");
         });
         view.meetingAcceptedClick(view -> {
             fetchMeetingAccepted(FETCH_MEETING_ACCEPTED_REQUEST_CODE);
-            ToastUtils.shortToast("Accepted Button is clicked");
+           // ToastUtils.shortToast("Accepted Button is clicked");
+            abc(2);
         });
         view.meetingDeniedClick(view -> {
             fetchGetMeetingDeniedList(FETCH_MEETING_DENIED_REQUEST_CODE);
-            ToastUtils.shortToast("Meeting denied clicked");
+            //ToastUtils.shortToast("Meeting denied clicked");
+            abc(3);
         });
 
+    }
+    public void abc(int temp) {
+        view.colorChanger(temp);
     }
 
 
